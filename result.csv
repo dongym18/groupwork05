@@ -1,0 +1,40 @@
+1,37407ea7f938,"Revert ""sched: Improve scalability via 'CPU buddies', which withstand random perturbations""",kernel/sched/core.c,1
+2,a4c96ae319b8,sched: Unthrottle rt runqueues in __disable_runtime(),kernel/sched/core.c,3
+3,f319da0c6894,sched: Fix load avg vs cpu-hotplug,kernel/sched/core.c,10
+4,35cf4e50b163,"sched,cgroup: Fix up task_groups list",kernel/sched/core.c,1
+5,bea6832cc8c4,"sched: fix divide by zero at {thread_group,task}_times",kernel/sched/core.c,20
+6,895dd92c032e,sched: Deliver sched_switch events to the current task,kernel/sched/core.c,1
+7,45afb1734fa6,sched: Use task_rq_unlock() in __sched_setscheduler(),kernel/sched/core.c,1
+8,8323f26ce342,sched: Fix race in task_group(),kernel/sched/core.c,8
+9,970e178985ca,"sched: Improve scalability via 'CPU buddies', which withstand random perturbations",kernel/sched/core.c,38
+10,7ddf96b02fe8,"cpusets, hotplug: Restructure functions that are invoked during hotplug",kernel/sched/core.c,2
+11,d35be8bab9b0,"CPU hotplug, cpusets, suspend: Don't modify cpusets during suspend/resume",kernel/sched/core.c,36
+12,5167e8d5417b,sched/nohz: Rewrite and fix load-avg computation -- again,kernel/sched/core.c,203
+13,cba6d0d64ee5,"Revert ""rcu: Move PREEMPT_RCU preemption to switch_to() invocation""",kernel/sched/core.c,1
+14,a841f8cef4bb,sched: Fix the relax_domain_level boot parameter,kernel/sched/core.c,3
+15,d039ac60800f,sched: Validate assumptions in sched_init_numa(),kernel/sched/core.c,80
+16,c3decf0dfbc9,sched: Always initialize cpu-power,kernel/sched/core.c,12
+17,c1174876874d,sched: Fix domain iteration,kernel/sched/core.c,56
+18,10717dcde10d,sched/numa: Load balance between remote nodes,kernel/sched/core.c,1
+19,6a4c96eef42f,sched: Remove NULL assignment of dattr_cur,kernel/sched/core.c,1
+20,7997a456ef84,sched: Remove the last NULL entry from sched_feat_names,kernel/sched/core.c,1
+21,1292531f6f27,sched: Make sched_feat_names const,kernel/sched/core.c,1
+22,29baa7478ba4,sched: Move nr_cpus_allowed out of 'struct sched_rt_entity',kernel/sched/core.c,1
+23,74a5ce20e6ee,sched: Fix SD_OVERLAP,kernel/sched/core.c,5
+24,2ea45800d8e1,sched: Don't try allocating memory from offline nodes,kernel/sched/core.c,1
+25,5aaa0b7a2ed5,sched/nohz: Fix rq->cpu_load calculations some more,kernel/sched/core.c,43
+26,ab0cce560ef1,"Revert ""sched, perf: Use a single callback into the scheduler""",kernel/sched/core.c,8
+27,1c2927f18576,sched: Taint kernel with TAINT_WARN after sleep-in-atomic bug,kernel/sched/core.c,1
+28,8e7fbcbc22c1,sched: Remove stale power aware scheduling remnants and dysfunctional knobs,kernel/sched/core.c,94
+29,556061b00c9f,sched/nohz: Fix rq->cpu_load[] calculations,kernel/sched/core.c,39
+30,870a0bb5d636,sched/numa: Don't scale the imbalance,kernel/sched/core.c,1
+31,04f733b4afac,sched/fair: Revert sched-domain iteration breakage,kernel/sched/core.c,2
+32,dd7d8634e619,sched/numa: Fix the new NUMA topology bits,kernel/sched/core.c,1
+33,cb04ff9ac424,"sched, perf: Use a single callback into the scheduler",kernel/sched/core.c,1
+34,cb83b629bae0,sched/numa: Rewrite the CONFIG_NUMA sched domain support,kernel/sched/core.c,185
+35,0ce90475dcdb,sched/fair: Add some serialization to the sched_domain load-balance walk,kernel/sched/core.c,2
+36,9c806aa06f8e,userns: Convert sched_set_affinity and sched_set_scheduler's permission checks,kernel/sched/core.c,2
+37,616c310e83b8,rcu: Move PREEMPT_RCU preemption to switch_to() invocation,kernel/sched/core.c,1
+38,29d5e0476e1c,smp: Provide generic idle thread allocation,kernel/sched/core.c,2
+39,c4a4d603796c,userns: Use cred->user_ns instead of cred->user->user_ns,kernel/sched/core.c,1
+40,4baf6e33251b,cgroup: convert all non-memcg controllers to the new cftype interface,kernel/sched/core.c,4
