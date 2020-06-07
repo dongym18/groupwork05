@@ -1,0 +1,103 @@
+Hello professor, this txt file is our team work of group05 in Friday class. The results are from different students in our team and includes both git diff result and the reference we used to judge if it is refactory or not from git log -p command line. 
+There are four items from 401-500 and two of them are refactory. We have also developed a small program for searching commit that is suitable for the pattern you provided in class. We finally finid 8 items from 1000 that meet the pattern strictly and are similar to the "3 and 5" example you provided in the data1.pdf.
+The code for that is in the other file.
+
+
+1.
+$ git diff --numstat HEAD~450..HEAD~449
+2       2       drivers/staging/comedi/drivers/adv_pci1710.c
+1       0       drivers/staging/rtl8188eu/os_dep/usb_intf.c
+2       2       drivers/staging/vt6656/baseband.c
+1       1       drivers/staging/vt6656/card.c
+1       0       drivers/staging/vt6656/device.h
+2       1       drivers/staging/vt6656/main_usb.c
+23      2       drivers/staging/vt6656/usbpipe.c
+5       0       drivers/staging/vt6656/usbpipe.h
+1       0       drivers/staging/vt6656/wcmd.c
+
+$ git log -p HEAD~450..HEAD~449
+"Nothing major here, just some small fixes”
+"The driver uses logical only error checking a bool true would flag error"
+" It appears that this command has always failed but was ignored by driver until the introduction of error checking."
+"The driver standard error returns remove bool false conditions."
+"Correct the return function so only return zero when transfer is successful."
+
+Most of opreations are correcting and debug. Generally, refactory!
+
+
+
+2.
+$ git diff --numstat HEAD~476..HEAD~475
+1       1       Documentation/features/debug/gcov-profile-all/arch-support.txt
+1       0       Documentation/process/index.rst
+1       0       Documentation/riscv/index.rst
+35      0       Documentation/riscv/patch-acceptance.rst
+1       0       MAINTAINERS
+1       0       arch/riscv/Kconfig
+15      0       arch/riscv/boot/dts/sifive/fu540-c000.dtsi
+9       9       arch/riscv/include/asm/csr.h
+1       1       arch/riscv/kernel/ftrace.c
+3       3       arch/riscv/kernel/irq.c
+6       6       arch/riscv/mm/init.c
+1       1       drivers/clocksource/timer-riscv.c
+1       1       drivers/irqchip/irq-sifive-plic.c
+
+$ git log -p HEAD~476..HEAD~475
+"Several fixes for RISC-V"
+"DT addition"
+"Documentation update"
+"Documentation: riscv: add patch acceptance guidelines"
+"Formalize, in kernel documentation, the patch acceptance policy for arch/riscv."
+" riscv: prefix IRQ_ macro names with an RV_ namespace"
+"Fixes: a4c3733d32a72 ("riscv: abstract out CSR names for supervisor vs machine mode")"
+" clocksource: riscv: add notrace to riscv_sched_clock"
+"riscv: ftrace: correct the condition logic in function graph tracer"
+"riscv: gcov: enable gcov for RISC-V"
+
+Some patch, notrace and 'DT'are added. This is not refactory.
+
+
+3.
+$ git diff --numstat HEAD~465..HEAD~464
+2       2       drivers/staging/comedi/drivers/adv_pci1710.c
+1       0       drivers/staging/rtl8188eu/os_dep/usb_intf.c
+2       2       drivers/staging/vt6656/baseband.c
+1       1       drivers/staging/vt6656/card.c
+1       0       drivers/staging/vt6656/device.h
+2       1       drivers/staging/vt6656/main_usb.c
+23      2       drivers/staging/vt6656/usbpipe.c
+5       0       drivers/staging/vt6656/usbpipe.h
+1       0       drivers/staging/vt6656/wcmd.c
+
+$ git log -p HEAD~465..HEAD~464
+    Merge tag 'staging-5.5-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+      staging: rtl8188eu: Add device code for TP-Link TL-WN727N v5.21
+      staging: comedi: adv_pci1710: fix AI channels 16-31 for PCI-1713
+      staging: vt6656: set usb_set_intfdata on driver fail.
+      staging: vt6656: remove bool from vnt_radio_power_on ret
+      staging: vt6656: limit reg output to block size
+      staging: vt6656: correct return of vnt_init_registers.
+      staging: vt6656: Fix non zero logical return of, usb_control_msg
+
+Because of add device code this in not refactory!
+
+
+4.
+$ git diff --numstat HEAD~491..HEAD~490
+1       1       security/apparmor/apparmorfs.c
+43      39      security/apparmor/domain.c
+8       4       security/apparmor/file.c
+1       1       security/apparmor/mount.c
+2       2       security/apparmor/policy.c
+
+$ git log -p HEAD~491..HEAD~490
+
+    Merge tag 'apparmor-pr-2020-01-04' of git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor
+
+    Pull apparmor fixes from John Johansen:
+     - performance regression: only get a label reference if the fast path
+       check fails
+     - fix aa_xattrs_match() may sleep while holding a RCU lock
+     - fix bind mounts aborting with -ENOMEM
+
+Generally refactory 
