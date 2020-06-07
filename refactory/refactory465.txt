@@ -1,0 +1,23 @@
+$ git diff --numstat HEAD~465..HEAD~464
+2       2       drivers/staging/comedi/drivers/adv_pci1710.c
+1       0       drivers/staging/rtl8188eu/os_dep/usb_intf.c
+2       2       drivers/staging/vt6656/baseband.c
+1       1       drivers/staging/vt6656/card.c
+1       0       drivers/staging/vt6656/device.h
+2       1       drivers/staging/vt6656/main_usb.c
+23      2       drivers/staging/vt6656/usbpipe.c
+5       0       drivers/staging/vt6656/usbpipe.h
+1       0       drivers/staging/vt6656/wcmd.c
+
+$ git log -p HEAD~465..HEAD~464
+    Merge tag 'staging-5.5-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+      staging: rtl8188eu: Add device code for TP-Link TL-WN727N v5.21
+      staging: comedi: adv_pci1710: fix AI channels 16-31 for PCI-1713
+      staging: vt6656: set usb_set_intfdata on driver fail.
+      staging: vt6656: remove bool from vnt_radio_power_on ret
+      staging: vt6656: limit reg output to block size
+      staging: vt6656: correct return of vnt_init_registers.
+      staging: vt6656: Fix non zero logical return of, usb_control_msg
+
+Because of add device code this in not refactory!
+
