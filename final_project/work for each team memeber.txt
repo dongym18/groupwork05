@@ -1,0 +1,25 @@
+****************Wanfeng Zhu：***********************
+1. Hypothesis and the mapping to data (explaining and justifying it.
+2. Requirements and Design.
+
+****************Qiyuan Zhang and Jiachaun He：*****************
+3. Data harvesting concept and implementation 
+get the dataset from git kernel and save them into csv.
+（eg.t22.all/t23.all）
+
+****************Yunhao Kang：*****************
+4. Data cleaning concept (analysis and ”ﬁxing”) and implementation 
+（eg.remove the repeat data, fill the null value, and handle the outlier value.
+
+****************Haoqiu Yan：*****************
+5. Technology selection and technology evaluation
+
+****************Yuming Dong and Yinru Ye：*****************
+6. Implementation (naming, OO, coding style, etc.) 
+7. Application to your data
+
+****************Yuhao Zhang：*********************
+8. Interpretation of results 
+
+
+
