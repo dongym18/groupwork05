@@ -1,0 +1,43 @@
+On Fri, May 08, 2020 at 11:45:32PM +0800, ????????? wrote:
+> Hello professor!:
+> 
+> After today's class, our group#5 continued searching better solution to the example and got some results. There are two python files for two solutions and an another csv file for the result. 
+> 
+> In ver1.0, we use two dict and four loops (two loops for two dicts, one for put them together and one for writing the result in csv file). Running takes a quite long time. Maybe better solution by using dict is still not found by us.
+> 
+> In ver2.0, we try to abondon using dict and find that counter class can handle the question more efficiently. We travese developers' name and count the repeated time by importing counter from collections. Then, we use a for loop to wirte the result in to one file. It takes quite shorter time than before.
+> 
+> One more thing, does the group discussion you have mentioned at last mean a chance for reviewing by going through some basic examples? If so, we are willing to have a group discussion after we find a suitable time.
+>
+
+    dir_count = {}
+    for i in txt:
+        if i[14:] in dir_count:
+            dir_count[i[14:]]+=1 #If there is a corresponding key in the dictionary, value + 1
+        else:
+            dir_count[i[14:]]=1 #Create a new one if it is not in the dictionary, let count be 1
+
+so here you are searching the dictionary on every call
+not that this is wrong but if you really want to do that
+why not in a try..except ?
+
+try:
+   dir_count[i[14:]]+=1
+except KeyError:
+   dir_count[i[14:]]=1 
+
+or even more elegant - as we did it in class use the 
+get method on the dictionary
+
+  dir_count[i[14:]]=dir_count.get(i[14:],0)+1
+
+and of course you could also think about using
+defaultdict class rather than dict.
+
+but technically not wrong - just not efficient and
+not very pythonic ! think OO not sequencial - I know
+this is hard - but you are all on a good path - so 
+just keep on trying !
+
+thx!
+hofrat 
