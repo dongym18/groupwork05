@@ -11,7 +11,7 @@ import csv
 file = 'coreb.csv'
 with open(file, 'r') as fp:
     reader = csv.reader(fp)
-    rows = [[r[0][:13], r[0][35:62].rstrip(), r[0][62:81]] for r in reader]
+    rows = [[r[0][:13], r[0][35:62].rstrip(), r[0][62:75]] for r in reader]
 df = pd.DataFrame(rows)
 df.columns = ['sha', 'author', 'time_str']
 df.to_csv('regular_coreb.csv', sep=',', header=True, index=True)
