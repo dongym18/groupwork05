@@ -1,0 +1,27 @@
+﻿ 
+
+$ git diff --numstat HEAD~491..HEAD~490
+1       1       security/apparmor/apparmorfs.c
+43      39      security/apparmor/domain.c
+8       4       security/apparmor/file.c
+1       1       security/apparmor/mount.c
+2       2       security/apparmor/policy.c
+
+$ git log -p HEAD~491..HEAD~490
+
+    Merge tag 'apparmor-pr-2020-01-04' of git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor
+
+    Pull apparmor fixes from John Johansen:
+     - performance regression: only get a label reference if the fast path
+       check fails
+     - fix aa_xattrs_match() may sleep while holding a RCU lock
+     - fix bind mounts aborting with -ENOMEM
+
+Generally refactory 
+
+
+
+
+ 
+
+
