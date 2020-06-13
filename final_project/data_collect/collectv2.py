@@ -123,7 +123,7 @@ def gitFixCommits(kernelRange, repo, fileName):
     fixes = re.compile('^\W+Fixes: [a-f0-9]{8,40} \(.*\)$', re.IGNORECASE)
     nr_fixes = 0
     total_commits = 0
-    cmd = ["git", "log", "-P", "--no-merges", "--date-order", kernelRange, fileName]
+    cmd = ["git", "log", "-p", "--no-merges", "--date-order", kernelRange, fileName]
     p = Popen(cmd, cwd=repo, stdout=PIPE)
     data, res = p.communicate()
     # we need to clean and normalize the data - note the errors ignore !
