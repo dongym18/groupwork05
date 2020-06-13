@@ -30,10 +30,13 @@ def blame_one(kernelRange, fileName, repo):
             except IndexError:
                 # blame的结果无日期时
                 first_name = parts[1].split('(')[1]
-                if parts[2] != [parts[-4]]:
-                    last_name = ' '.join(parts[2:-4])
-                else:
-                    last_name = ''
+                try:
+                    if parts[2] != [parts[-4]]:
+                        last_name = ' '.join(parts[2:-4])
+                    else:
+                        last_name = ''
+                except IndexError:
+                    continue
             author = ' '.join([first_name, last_name])
             time_str = ' '.join([parts[-4],parts[-3]])
             record = [sha, author.rstrip(),time_str]
@@ -47,25 +50,32 @@ def blame_many(files):
     kernelRange = "v3.0..HEAD"
     rows = []
     wrong_files = []
-    for file_path in files:
-        print("File_path:\n", file_path)
-        df_blame = blame_one(kernelRange, file_path, repo)
-        print("df_blame.head(10)", df_blame.head(10))
-        try:
-            the_first_time, the_last_time, average_date, clean_df = count_avetime(df_blame)  # Delete some lines.
-        except ZeroDivisionError:
-            wrong_files.append(file_path)
-            continue
-        lines = count_lines(clean_df)
-        authors = count_author(clean_df)
-        shas = count_commit(clean_df)
-        fixes_percent, total_shas, last_fixes = gitFixCommits(kernelRange, repo, file_path)
-        row = {'file_name': file_path, 'lines': lines, 'authors': authors, 'shas': shas,
-               'the_first_time': the_first_time, 'the_last_time': the_last_time,
-               'average_date': average_date, 'total_shas': total_shas, 'last_fixes': last_fixes,
-               'fixes_percent': fixes_percent}
-        rows.append(row)
-        print("Row:\n", row)
+    try:
+        for file_path in files:
+            print("File_path:\n", file_path)
+            df_blame = blame_one(kernelRange, file_path, repo)
+            print("df_blame.head(10)", df_blame.head(10))
+            try:
+                the_first_time, the_last_time, average_date, clean_df = count_avetime(df_blame)  # Delete some lines.
+            except ZeroDivisionError:
+                wrong_files.append(file_path)
+                continue
+            lines = count_lines(clean_df)
+            authors = count_author(clean_df)
+            shas = count_commit(clean_df)
+            fixes_percent, total_shas, last_fixes = gitFixCommits(kernelRange, repo, file_path)
+            row = {'file_name': file_path, 'lines': lines, 'authors': authors, 'shas': shas,
+                   'the_first_time': the_first_time, 'the_last_time': the_last_time,
+                   'average_date': average_date, 'total_shas': total_shas, 'last_fixes': last_fixes,
+                   'fixes_percent': fixes_percent}
+            rows.append(row)
+            print("Row:\n", row)
+    except Exception:
+        file_info = pd.DataFrame(rows)
+        file_info.head(20)
+        file_info.to_csv('results.csv', header=True, index=True)
+        print("wrong_files:", wrong_files)
+        raise
     file_info = pd.DataFrame(rows)
     file_info.head(20)
     file_info.to_csv('results.csv', header=True, index=True)
@@ -140,11 +150,10 @@ def gitFixCommits(kernelRange, repo, fileName):
                 tag = 0
                 print("last_fixes", last_fixes)
             nr_fixes += 1
-	if total_commits != 0:
-		fixes_percent = (nr_fixes / total_commits) * 100
-    else:
-		print("last_fixes", last_fixes)
-		fixes_percent = 0
+    try:
+        fixes_percent = (nr_fixes / total_commits) * 100
+    except ZeroDivisionError:
+        fixes_percent = 0
     return fixes_percent, total_commits, last_fixes
 
 
