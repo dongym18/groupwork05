@@ -10,7 +10,7 @@ import unicodedata
 
 
 def blame_one(kernelRange, fileName, repo, columns):
-    cmd = ["git", "blame", kernelRange, fileName]
+    cmd = ["git", "blame", "--no-merges", kernelRange, fileName]
     p = Popen(cmd, cwd=repo, stdout=PIPE)
     data, res = p.communicate()
     sha_head = columns[0]
