@@ -10,7 +10,7 @@ import unicodedata
 
 
 def blame_one(kernelRange, fileName, repo, columns):
-    cmd = ["git", "blame", kernelRange, fileName]
+    cmd = ["git", "blame", "--no-merges", kernelRange, fileName]
     p = Popen(cmd, cwd=repo, stdout=PIPE)
     data, res = p.communicate()
     sha_head = columns[0]
@@ -39,8 +39,8 @@ def blame_many(files_columns):
         fixes_percent, total_shas, last_fixes = gitFixCommits(kernelRange, repo)
         row = {'file_name': file_path, 'lines': lines, 'authors': authors, 'shas': shas,
                'the_first_time': the_first_time, 'the_last_time': the_last_time,
-               'average_date': average_date, 'fixes_percent': fixes_percent,
-               'total_shas': total_shas, 'last_fixes': last_fixes}
+               'average_date': average_date, 'total_shas': total_shas, 'last_fixes': last_fixes,
+               'fixes_percent': fixes_percent,}
         rows.append(row)
         print("Rows:\n", rows)
     file_info = pd.DataFrame(rows)
