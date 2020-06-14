@@ -14,28 +14,28 @@
 import os
 import random
 
-
-filePath = 'C:/Users/40485/Documents/linux-stable'  # 运行时应改为linux-stable在自己电脑里的的绝对路径
+# You should change the filepath to the absolute path of the linux-Stable on your own computer.
+filePath = 'C:/Users/40485/Documents/linux-stable'
 m = len(filePath) + 1
 samples = []
 for root, dirs, files in os.walk(filePath):
-    # root是指当前目录路径(文件夹的绝对路径)
-    # dirs是指当前路径下所有的子目录(文件夹里的文件夹)
-    # files是指当前路径下所有的非目录子文件(文件夹里所有的文件)
+    # 'root' refers to the absolute path to the current directory.
+    # 'dirs' refers to all subdirectories under the current path.
+    # 'files' refers to all non-directory files in the current path.
     for file in files:
-        if os.path.splitext(file)[1] == '.c':       # 只抓取c文件
-            sample = os.path.join(root[m:], file)  #
-            sample = sample.replace('\\', '/')      # 全部转化为/
+        if os.path.splitext(file)[1] == '.c':       # Only grab C files.
+            sample = os.path.join(root[m:], file)
+            sample = sample.replace('\\', '/')      # Change \\ to /
             samples.append(sample)
 # print(samples)
 
-# 随机抽取n个样本
+#  Drawing n samples randomly.
 n = 8000
 random_samples = random.sample(samples, n)
 
 with open('samples.txt', 'w') as fs:
     for i in range(n):
-        line = str(random_samples[i]).replace('[', '').replace(']', '')  # 去除[],这两行按数据不同，可以选择
-        line = line.replace("'", '').replace(',', '') + '\n'     # 去除单引号，逗号，每行末尾追加换行符
+        line = str(random_samples[i]).replace('[', '').replace(']', '')
+        line = line.replace("'", '').replace(',', '') + '\n'
         fs.write(line)
 print("The samples are saved as samples.txt")
