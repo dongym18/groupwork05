@@ -9,77 +9,43 @@ from subprocess import Popen, PIPE
 import unicodedata
 
 
-def blame_one(kernelRange, fileName, repo):
-    cmd = ["git", "blame", "--no-merges", kernelRange, fileName]
+def blame_one(kernelRange, fileName, repo, columns):
+    cmd = ["git", "blame", kernelRange, fileName]
     p = Popen(cmd, cwd=repo, stdout=PIPE)
     data, res = p.communicate()
-    records = []
-    for line in data.decode("utf-8").split("\n"):
-        if line:
-            row = line.split(")",1)[0]
-            parts = row.split(" ")
-            parts = [i for i in parts if i != '']
-            sha = parts[0]
-            try:
-                # blame的结果有日期时
-                first_name = parts[2].split('(')[1]
-                if parts[3] != [parts[-4]]:
-                    last_name = ' '.join(parts[3:-4])
-                else:
-                    last_name = ''
-            except IndexError:
-                # blame的结果无日期时
-                first_name = parts[1].split('(')[1]
-                try:
-                    if parts[2] != [parts[-4]]:
-                        last_name = ' '.join(parts[2:-4])
-                    else:
-                        last_name = ''
-                except IndexError:
-                    continue
-            author = ' '.join([first_name, last_name])
-            time_str = ' '.join([parts[-4],parts[-3]])
-            record = [sha, author.rstrip(),time_str]
-            records.append(record)
-    print(records)
-    return pd.DataFrame(records, columns=['sha', 'author', 'time_str'])
+    sha_head = columns[0]
+    sha_tail = columns[1]
+    author_head = columns[2]
+    author_tail = columns[3]
+    time_head = columns[4]
+    time_tail = columns[5]
+    rows = [[line[sha_head:sha_tail], line[author_head:author_tail].rstrip(),
+             line[time_head:time_tail]] for line in data.decode("utf-8").split("\n") if line]
+    return pd.DataFrame(rows, columns=['sha', 'author', 'time_str'])
 
 
-def blame_many(files):
+def blame_many(files_columns):
     repo = 'C:/Users/admin/Desktop/linux-stable'
     kernelRange = "v3.0..HEAD"
     rows = []
-    wrong_files = []
-    try:
-        for file_path in files:
-            print("File_path:\n", file_path)
-            df_blame = blame_one(kernelRange, file_path, repo)
-            print("df_blame.head(10)", df_blame.head(10))
-            try:
-                the_first_time, the_last_time, average_date, clean_df = count_avetime(df_blame)  # Delete some lines.
-            except ZeroDivisionError:
-                wrong_files.append(file_path)
-                continue
-            lines = count_lines(clean_df)
-            authors = count_author(clean_df)
-            shas = count_commit(clean_df)
-            fixes_percent, total_shas, last_fixes = gitFixCommits(kernelRange, repo, file_path)
-            row = {'file_name': file_path, 'lines': lines, 'authors': authors, 'shas': shas,
-                   'the_first_time': the_first_time, 'the_last_time': the_last_time,
-                   'average_date': average_date, 'total_shas': total_shas, 'last_fixes': last_fixes,
-                   'fixes_percent': fixes_percent}
-            rows.append(row)
-            print("Row:\n", row)
-    except Exception:
-        file_info = pd.DataFrame(rows)
-        file_info.head(20)
-        file_info.to_csv('results.csv', header=True, index=True)
-        print("wrong_files:", wrong_files)
-        raise
+    for file_path, columns in files_columns.items():
+        print("File_path:\n", file_path)
+        df_blame = blame_one(kernelRange, file_path, repo, columns)
+        print("df_blame.head(10)", df_blame.head(10))
+        the_first_time, the_last_time, average_date, clean_df = count_avetime(df_blame)  # Delete some lines.
+        lines = count_lines(clean_df)
+        authors = count_author(clean_df)
+        shas = count_commit(clean_df)
+        fixes_percent, total_shas, last_fixes = gitFixCommits(kernelRange, repo)
+        row = {'file_name': file_path, 'lines': lines, 'authors': authors, 'shas': shas,
+               'the_first_time': the_first_time, 'the_last_time': the_last_time,
+               'average_date': average_date, 'fixes_percent': fixes_percent,
+               'total_shas': total_shas, 'last_fixes': last_fixes}
+        rows.append(row)
+        print("Rows:\n", rows)
     file_info = pd.DataFrame(rows)
     file_info.head(20)
     file_info.to_csv('results.csv', header=True, index=True)
-    print("wrong_files:", wrong_files)
 
 
 
@@ -128,12 +94,12 @@ def list_save(filename, data):  # filename为写入CSV文件的路径，data为�
     print("Filtered lines are saved as BadTime.txt")
 
 
-def gitFixCommits(kernelRange, repo, fileName):
+def gitFixCommits(kernelRange, repo):
     commit = re.compile('^commit [0-9a-z]{40}$', re.IGNORECASE)
     fixes = re.compile('^\W+Fixes: [a-f0-9]{8,40} \(.*\)$', re.IGNORECASE)
     nr_fixes = 0
     total_commits = 0
-    cmd = ["git", "log", "-p", "--no-merges", "--date-order", kernelRange, fileName]
+    cmd = ["git", "log", "-P", "--no-merges", "--date-order", kernelRange]
     p = Popen(cmd, cwd=repo, stdout=PIPE)
     data, res = p.communicate()
     # we need to clean and normalize the data - note the errors ignore !
@@ -150,16 +116,13 @@ def gitFixCommits(kernelRange, repo, fileName):
                 tag = 0
                 print("last_fixes", last_fixes)
             nr_fixes += 1
-    try:
-        fixes_percent = (nr_fixes / total_commits) * 100
-    except ZeroDivisionError:
-        fixes_percent = 0
+    fixes_percent = (nr_fixes / total_commits) * 100
     return fixes_percent, total_commits, last_fixes
 
 
 if __name__ == '__main__':
-    files = ["arch/arm/mach-iop32x/gpio-iop32x.h", "arch/arm/mach-iop32x/Kconfig",
-             "arch/nds32/kernel/signal.c", "arch/nds32/kernel/syscall_table.c"]
-    blame_many(files)
+    files_columns = {"kernel/sched/autogroup.c": [0, 13, 41, 60, 60, 79],
+                     "kernel/sched/core.c": [0, 13, 35, 62, 62, 81]}
+    blame_many(files_columns)
 
 
