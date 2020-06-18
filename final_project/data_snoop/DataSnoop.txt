@@ -1,0 +1,21 @@
+In the data snoop step, we made a total of 8 statistical charts, including box plots, frequency histograms, pie charts, scatter plots, and heat maps.
+
+1. Box chart
+We made a box plot of fixes_percent because we expected to view outliers in this way.
+It can be seen from the figure that most of the data is concentrated in 5% to 18%, and a small part of the data exceeds 35%. Later, we will judge this part of the data and analyze the reasons for their generation.
+
+2. Frequency histogram
+Regarding lines and total_shas, ​​we made frequency histograms separately, because we expect to know their data scale in this way.
+It can be seen from the figure that the number of lines is mostly concentrated in 0~500, the data of 1000~4000 is less, and the data of more than 4000 is the least. The number of total_shas is mostly concentrated in 0~100, less in the range of 100~400, and the least in excess of 400.
+
+3. Pie chart
+For authors, we chose a pie chart to understand the proportion of different numbers of people.
+It can be seen from the figure that the largest proportion is 10~50 people, about 43.1%; the second is 5~10 people, about 30.2%; the least is 100~200 people, about 0.3%.
+
+4. Scatter chart
+We chose three variables to make a scatterplot between fixes_percent, which are lines, authors, and total_shas. The purpose is to check whether there is a correlation between them.
+The trend in the graph shows that there may be a negative correlation between these three variables and fixes_percent.
+
+5. Heat map
+We choose a heat map to determine the strength of the correlation in this data set.
+After observation, it is found that the correlation between each variable and fixes_percent is generally weak, and the absolute values ​​of their correlation coefficients are all between 0.1 and 0.5.
