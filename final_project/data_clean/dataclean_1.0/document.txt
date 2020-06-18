@@ -1,0 +1,16 @@
+We mainly use the pandas module for data cleaning.
+
+The original data set to be cleaned is "dataset1.csv", and the cleaned data set is "dataset2.csv"
+
+Before performing data cleaning, we first use the info() function to obtain information about the data set. You can see that the data types of the columns are object, int64, float64, and the total number of rows in the data set is 7837.
+
+The first step of data cleaning is to deal with duplicate values. Duplicate values ​​will affect the statistical results, so remove the duplicate values. After running (df.duplicated()).sum(), we found that there are no duplicate rows in the data set, so the process of removing duplicate values ​​ends.
+
+Then, deal with missing values. Missing values ​​will interfere with the statistical analysis, and the methods of dealing with missing values ​​mainly include deletion and filling. The "last_fixes" column has missing values, and the corresponding "fixes_percent" column is 0. Due to the large amount of data in this data set and the scattered data characteristics, it is not possible to choose a suitable value to fill in the missing value, so it is preferred to delete it. After deleting the data in the "fixes_percent" column as 0, and then through the operation of (df.isnull()).sum(), we found that the data of each column is not missing, so the process of processing the missing values ​​ends.
+
+Finally, remove outliers. Outliers often lead to overfitting of the statistical model, making the model unable to adapt to new data. What is an outlier needs to be judged according to the actual situation.
+In this data set, some data are obviously outliers. It can be seen that the "fixes_percent" of some data exceeds 100, which is not in line with common sense. The data in this interval is an outlier and needs to be deleted.
+
+The following are some ideas that may be implemented later:
+*Secondly, the value of "total_shas" of some data is small (<5), which has a certain chance. I think it may be considered to delete it in the later data preprocessing.
+* Then, draw a box diagram and find that there is still a lot of data above the upper limit Q3+1.5IQR, and these data can also be regarded as outliers.
