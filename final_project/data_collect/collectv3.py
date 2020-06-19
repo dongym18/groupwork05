@@ -2,10 +2,8 @@
 # -*- coding: utf-8 -*-
 """Collect data"""
 
-__author__ = "Rob Knight, Gavin Huttley, and Peter Maxwell"
-__copyright__ = "Copyright 2007, The Cogent Project"
-__credits__ = ["Rob Knight", "Peter Maxwell", "Gavin Huttley",
-                    "Matthew Wakefield"]
+__author__ = "HaoqiuYan "
+__copyright__ = "Copyright 2020, Group05 final_project"]
 __license__ = "GPL"
 __version__ = "3.0"
 
