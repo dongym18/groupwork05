@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-@author: hjc
-@contact:***@**.com
-@version: 1.0.0
-@license: Apache Licence
-@file: sampling.py
-@time: 2020/6/13 16:31
+__author__ = "Jiachuan He"
+__copyright__ = "Copyright 2020, Group05 Final_Project"
+__license__ = "GPL"
+__version__ = "1.0.4"
+__maintainer__ = "Jiachuan He"
+__email__ = "hejch2018@lzu.edu.cn"
+__status__ = "Production"
 """
 
 
@@ -24,7 +25,7 @@ for root, dirs, files in os.walk(filePath):
     # 'files' refers to all non-directory files in the current path.
     for file in files:
         if os.path.splitext(file)[1] == '.c':       # Only grab C files.
-            sample = os.path.join(root[m:], file)
+            sample = os.path.join(root[m:], file)   # Slice root up
             sample = sample.replace('\\', '/')      # Change \\ to /
             samples.append(sample)
 # print(samples)
