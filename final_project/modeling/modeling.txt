@@ -1,0 +1,27 @@
+This part is about data modeling technology's implementation and applying the dataset to the model. It will include the explanation for each step, the code style and the meaning for each parameters' name. 
+
+The Preprocession for Data
+After data cleaning, the first thing is to read the result csv file as a dataframe for using relative attributes and functions. The file invokes two csv file, one for acquiring the names for columns and the other for getting the specific x values and y values. The main method in this work is dataframe's "iloc" function. It can get a section of the dataframe by setting suitable index. All the processes need to import the package of pandas. Before we start to build a model,we found that the data in our dataset gathered at the corner of two axies, which is quite hard for computer to understande the relationships between different features. We import log from math package to get the logarithm result for each featurea and it works(we will clarify this in the following part). The method is to use dateframes' "apply" function.
+
+In order to aviod value error and type error, we transform the datatype of the data into numpy's float. In the next block, we use the python package of seaborn to plot the pictures(each features versus y_value) by writing for loop. We also draw a heat map to illustrate the relationships between each parameters by producing correlation matrix first. All the pictures are saved as png file.
+
+Generating Train Set and Test Set
+
+The main method used here is train_test_split, it will randomly generate test set and train set for x and y respectively after you set the test size and random state.
+
+Normalization
+Each feature differs greatly, and the greater its value is , the greater the impact will be caused on the prediction results. Limiting the values to the same magnitude ensures that all data are equally important. This step mainly use preprocessing.MinMaxScaler(), import preprocessing from sklearn. A linear transformation of the original data can make the resulting value map between [0, 1].
+
+Techonology Selection
+Multi-linear Regression
+The purpose of this final project is discussing the relation between the features and between each feature and the predictor. The multi linear regression is  the first choice we think of.  This method with less complex algorithm can build a model fast no matter how big the dataset is. Becasuse the weight coefficient can be displayed directly, the result of multi linear model is easily to be understood and explain. This model uses residual sum of squares(SSE). 
+
+DecisionTree Regressor
+Due to the complicated relations of the features, linear model as an assumption may not be fit. The DecisionTree Regressor regard mean square error(MSE) as basis on node splitting. The predicted value is the mean of the samples that fall within the leaf nodes. The calculation of DecisionTree Regressor is not very complex as well. It can process the continuous data without linear relation and high-dimension data. Most importantly, it is a supervised machine learning algorithm.
+
+Modeling
+The Multi-linear regression is based on the sklearn package's LinearRegression. The Regression decsion tree is based on DecisionTreeRegressor in the same sklearn package. The x_test set is input and the output is the result of predict(x_test). We choose r^2_ score as the metric of judging the model. r^2 is SSR(Explained Sum of Squares)/SST(Sum of squares for total). The more closely it approach, the more accurate model is. 
+
+At last, we use lr_coef for weight in linear regrssion model, _importances for decsion tree regressor model to compare and conclude.
+
+

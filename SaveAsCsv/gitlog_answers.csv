@@ -1,0 +1,934 @@
+1,52262ee567ad,"sched/fair: Allow a per-CPU kthread waking a task to stack on the same CPU, to fix XFS performance regression",kernel/sched/core.c,11
+2,2a4b03ffc69f,sched/fair: Prevent unlimited runtime on throttled group,kernel/sched/core.c,8
+3,e938b9c94164,sched/nohz: Optimize get_nohz_timer_target(),kernel/sched/core.c,12
+4,b562d1406499,sched/uclamp: Reject negative values in cpu_uclamp_write(),kernel/sched/core.c,1
+5,ebc0f83c78a2,timers/nohz: Update NOHZ load in remote tick,kernel/sched/core.c,3
+6,488603b815a7,sched/core: Don't skip remote tick for idle CPUs,kernel/sched/core.c,10
+7,dcd6dffb0a75,sched/core: Fix size of rq::uclamp initialization,kernel/sched/core.c,2
+8,7226017ad37a,sched/uclamp: Fix a bug in propagating uclamp value in new cgroups,kernel/sched/core.c,6
+9,686516b55e98,sched/uclamp: Make uclamp util helpers use and return UL values,kernel/sched/core.c,3
+10,53a23364b6b0,sched/core: Remove unused variable from set_user_nice(),kernel/sched/core.c,1
+11,5443a0be6121,sched: Use fair:prio_changed() instead of ad-hoc implementation,kernel/sched/core.c,8
+12,7763baace1b7,sched/uclamp: Fix overzealous type replacement,kernel/sched/core.c,3
+13,6e1ff0773f49,sched/uclamp: Fix incorrect condition,kernel/sched/core.c,1
+14,ff51ff84d82a,sched/core: Avoid spurious lock dependencies,kernel/sched/core.c,2
+15,98c2f700edb4,sched/core: Simplify sched_class::pick_next_task(),kernel/sched/core.c,3
+16,5d7d605642b2,sched/core: Optimize pick_next_task(),kernel/sched/core.c,3
+17,f488e1057bb9,sched/core: Make pick_next_task_idle() more consistent,kernel/sched/core.c,4
+18,6e2df0581f56,sched: Fix pick_next_task() vs 'change' pattern race,kernel/sched/core.c,15
+19,e3b8b6a0d12c,sched/core: Fix compilation error when cgroup not selected,kernel/sched/core.c,1
+20,771b53d033e8,io-wq: small threadpool implementation for io_uring,kernel/sched/core.c,12
+21,5facae4f3549,locking/lockdep: Remove unused @nested argument from lock_release(),kernel/sched/core.c,1
+22,dff3a85fecea,sched_setattr: switch to copy_struct_from_user(),kernel/sched/core.c,7
+23,9fc41acc89e5,sched/core: Remove double update_max_interval() call on CPU startup,kernel/sched/core.c,2
+24,a49b4f4012ef,sched/core: Fix preempt_schedule() interrupt return comment,kernel/sched/core.c,3
+25,714e501e16cd,sched/core: Fix migration to invalid CPU in __set_cpus_allowed_ptr(),kernel/sched/core.c,2
+26,227a4aadc75b,sched/membarrier: Fix p->mm->membarrier_state racy load,kernel/sched/core.c,2
+27,5311a98fef7d,"tasks, sched/core: RCUify the assignment of rq->curr",kernel/sched/core.c,7
+28,0ff7b2cfbae3,"tasks, sched/core: Ensure tasks are available for a grace period after leaving the runqueue",kernel/sched/core.c,1
+29,312364f3534c,kernel.h: Add non_block_start/end(),kernel/sched/core.c,14
+30,1251201c0d34,"sched/core: Fix uclamp ABI bug, clean up and robustify sched_read_attr() ABI logic and code",kernel/sched/core.c,39
+31,0413d7f33e60,sched/uclamp: Always use 'enum uclamp_id' for clamp_id values,kernel/sched/core.c,19
+32,babbe170e053,sched/uclamp: Update CPU's refcount on TG's clamp changes,kernel/sched/core.c,54
+33,3eac870a3247,sched/uclamp: Use TG's clamps to restrict TASK's clamps,kernel/sched/core.c,27
+34,7274a5c1bbec,sched/uclamp: Propagate system defaults to the root group,kernel/sched/core.c,29
+35,0b60ba2dd342,sched/uclamp: Propagate parent clamps,kernel/sched/core.c,44
+36,2480c093130f,sched/uclamp: Extend CPU's cgroup controller,kernel/sched/core.c,189
+37,b0fdc01354f4,sched/core: Schedule new worker even if PI-blocked,kernel/sched/core.c,4
+38,67692435c411,sched: Rework pick_next_task() slow-path,kernel/sched/core.c,12
+39,5f2a45fc9e89,sched: Allow put_prev_task() to drop rq->lock,kernel/sched/core.c,1
+40,03b7fad167ef,sched: Add task_struct pointer to sched_class::set_curr_task,kernel/sched/core.c,6
+41,10e7071b2f49,sched: Rework CPU hotplug task selection,kernel/sched/core.c,14
+42,5feeb7837a44,sched: Fix kerneldoc comment for ia64_set_curr_task,kernel/sched/core.c,1
+43,139d025cda1d,sched: Clean up active_mm reference counting,kernel/sched/core.c,30
+44,b55bd585551e,time/tick-broadcast: Fix tick_broadcast_offline() lockdep complaint,kernel/sched/core.c,49
+45,d5096aa65acd,sched: Mark hrtimers to expire in hard interrupt context,kernel/sched/core.c,3
+46,c1a280b68d4e,sched/preempt: Use CONFIG_PREEMPTION where appropriate,kernel/sched/core.c,7
+47,a1dc0446d649,sched/core: Silence a warning in sched_init(),kernel/sched/core.c,5
+48,a07db5c08657,sched/core: Fix CPU controller for !RT_GROUP_SCHED,kernel/sched/core.c,4
+49,710da3c8ea7d,sched/core: Prevent race condition between cpuset and __sched_setscheduler(),kernel/sched/core.c,17
+50,4b211f2b129d,sched/core: Streamle calls to task_rq_unlock(),kernel/sched/core.c,14
+51,84ec3a078708,time/tick-broadcast: Fix tick_broadcast_offline() lockdep complaint,kernel/sched/core.c,49
+52,e3d85487fba4,sched/core: Fix preempt warning in ttwu,kernel/sched/core.c,3
+53,9d20ad7dfc9a,sched/uclamp: Add uclamp_util_with(),kernel/sched/core.c,13
+54,1a00d999971c,sched/uclamp: Set default clamps for RT tasks,kernel/sched/core.c,28
+55,a87498ace58e,sched/uclamp: Reset uclamp values on RESET_ON_FORK,kernel/sched/core.c,8
+56,a509a7cd7974,sched/uclamp: Extend sched_setattr() to support utilization clamping,kernel/sched/core.c,84
+57,1d6362fa0cfc,sched/core: Allow sched_setattr() to use the current policy,kernel/sched/core.c,2
+58,e8f14172c6b1,sched/uclamp: Add system default clamps,kernel/sched/core.c,98
+59,e496187da710,sched/uclamp: Enforce last task's UCLAMP_MAX,kernel/sched/core.c,44
+60,60daf9c19410,sched/uclamp: Add bucket local max tracking,kernel/sched/core.c,25
+61,69842cba9ace,sched/uclamp: Add CPU's clamp buckets refcounting,kernel/sched/core.c,166
+62,a056a5bed7fa,sched/debug: Export the newly added tracepoints,kernel/sched/core.c,11
+63,aacedf26fb76,sched/core: Optimize try_to_wake_up() for local wakeups,kernel/sched/core.c,29
+64,e3b929b0a184,sched/core: Add __sched tag for io_schedule(),kernel/sched/core.c,1
+65,55627e3cd22c,sched/core: Remove rq->cpu_load[],kernel/sched/core.c,1
+66,5e83eafbfd3b,sched/fair: Remove the rq->cpu_load[] update code,kernel/sched/core.c,1
+67,3bd3706251ee,sched/core: Provide a pointer to the valid CPU mask,kernel/sched/core.c,20
+68,457c89965399,treewide: Add SPDX license identifier for missed files,kernel/sched/core.c,1
+69,77a5352ba977,sched/core: Allow the remote scheduler tick to be started on CPU0,kernel/sched/core.c,1
+70,1a8b4540db73,sched/core: Check quota and period overflow at usec to nsec conversion,kernel/sched/core.c,6
+71,5b61d50ab4ef,sched/core: Handle overflow in cpu_shares_write_u64,kernel/sched/core.c,2
+72,bee9853932e9,sched/core: Fix typo in comment,kernel/sched/core.c,1
+73,b1546edcf2aa,sched/core: Make some functions static,kernel/sched/core.c,5
+74,7dd778841164,sched/core: Unify p->on_rq updates,kernel/sched/core.c,4
+75,1b174a2cb67a,sched/core: Remove ttwu_activate(),kernel/sched/core.c,2
+76,6d25be5782e4,"sched/core, workqueues: Distangle worker accounting from rq lock",kernel/sched/core.c,21
+77,6455959819bf,ia64/tlb: Eradicate tlb_migrate_finish() callback,kernel/sched/core.c,1
+78,4c47acd824aa,sched/core: Fix buffer overflow in cgroup2 property cpu.max,kernel/sched/core.c,1
+79,5e1f0f098b46,"mm, compaction: capture a page under direct compaction",kernel/sched/core.c,3
+80,568f196756ad,bpf: check that BPF programs run with preemption disabled,kernel/sched/core.c,28
+81,d0fe0b9c45c1,sched/fair: Simplify post_init_entity_util_avg() by calling it with a task_struct pointer argument,kernel/sched/core.c,1
+82,8dabe7245bbc,y2038: syscalls: rename y2038 compat syscalls,kernel/sched/core.c,2
+83,c546951d9c93,sched/core: Use READ_ONCE()/WRITE_ONCE() in move_queued_task()/task_rq_lock(),kernel/sched/core.c,5
+84,23127296889f,sched/fair: Update scale invariance of PELT,kernel/sched/core.c,1
+85,07879c6a3740,sched/wake_q: Reduce reference counting for special users,kernel/sched/core.c,44
+86,b5a4e2bb0f4c,"Revert ""sched/core: Take the hotplug lock in sched_init_smp()""",kernel/sched/core.c,1
+87,87ff19cb2f1a,sched/wake_q: Add branch prediction hint to wake_q_add() cmpxchg,kernel/sched/core.c,1
+88,4c4e3731564c,sched/wake_q: Fix wakeup ordering for wake_q,kernel/sched/core.c,4
+89,e6018c0f5c99,sched/wake_q: Document wake_q_add(),kernel/sched/core.c,12
+90,e9666d10a567,jump_label: move 'asm goto' support test to Kconfig,kernel/sched/core.c,1
+91,34ec35ad8f5f,kernel/sched/: remove caller signal_pending branch predictions,kernel/sched/core.c,1
+92,96d4f267e40f,Remove 'type' argument from access_ok() function,kernel/sched/core.c,2
+93,dfcb245e2848,sched: Fix various typos in comments,kernel/sched/core.c,1
+94,c5511d03ec09,sched/smt: Make sched_smt_present track topology,kernel/sched/core.c,11
+95,1da1843f9f03,sched/core: Create task_has_idle_policy() helper,kernel/sched/core.c,2
+96,309ba859b950,rcu: Eliminate synchronize_rcu_mult(),kernel/sched/core.c,1
+97,40fa3780bac2,sched/core: Take the hotplug lock in sched_init_smp(),kernel/sched/core.c,4
+98,eb414681d5a0,"psi: pressure stall information for CPU, memory, and IO",kernel/sched/core.c,10
+99,246b3b3342c9,sched: introduce this_rq_lock_irq(),kernel/sched/core.c,1
+100,a7fe5190c03f,cpuidle: menu: Remove get_loadavg() from the performance multiplier,kernel/sched/core.c,7
+101,145d952a2932,sched: Factor out nr_iowait and nr_iowait_cpu,kernel/sched/core.c,20
+102,9c2298aad355,sched/core: Fix comment regarding nr_iowait_cpu() and get_iowait_load(),kernel/sched/core.c,4
+103,4a465e3ebbc8,sched/fair: Remove setting task's se->runnable_weight during PELT update,kernel/sched/core.c,2
+104,11d4afd4ff66,sched/pelt: Fix warning and clean up IRQ PELT config,kernel/sched/core.c,3
+105,1327237a5978,sched/numa: Pass destination CPU as a parameter to migrate_task_rq,kernel/sched/core.c,1
+106,474b9c777b20,y2038: sched: Change sched_rr_get_interval to use __kernel_timespec,kernel/sched/core.c,2
+107,9afc5eee65ca,y2038: globally rename compat_time to old_time32,kernel/sched/core.c,2
+108,088fe47ce952,signal: Add calculate_sigpending(),kernel/sched/core.c,2
+109,c3bc8fd637a9,tracing: Centralize preemptirq tracepoints and unify their usage,kernel/sched/core.c,1
+110,0ad4e3dfe6cf,sched/numa: Modify migrate_swap() to accept additional parameters,kernel/sched/core.c,6
+111,3d6c50c27bd6,sched/debug: Show the sum wait time of a task group,kernel/sched/core.c,10
+112,2e62c4743adc,sched/fair: Remove #ifdefs from scale_rt_capacity(),kernel/sched/core.c,1
+113,5d2a4e91a541,sched/clock: Move sched clock initialization and merge with generic clock,kernel/sched/core.c,1
+114,7696f9910a9a,sched/Documentation: Update wake_up() & co. memory-barrier guarantees,kernel/sched/core.c,12
+115,3d85b2703783,"locking/spinlock, sched/core: Clarify requirements for smp_mb__after_spinlock()",kernel/sched/core.c,21
+116,af0fffd9300b,sched/core: Remove get_cpu() from sched_fork(),kernel/sched/core.c,4
+117,5fd778915ad2,sched/sysctl: Remove unused sched_time_avg_ms sysctl,kernel/sched/core.c,8
+118,bbb62c0b024a,sched/core: Remove the rt_avg code,kernel/sched/core.c,26
+119,91c27493e78d,sched/irq: Add IRQ utilization tracking,kernel/sched/core.c,3
+120,1cef1150ef40,"kthread, sched/core: Fix kthread_parkme() (again...)",kernel/sched/core.c,11
+121,d9c0ffcabd6a,sched/nohz: Skip remote tick on idle task entirely,kernel/sched/core.c,21
+122,ba2591a5993e,sched/smt: Update sched_smt_present at runtime,kernel/sched/core.c,12
+123,0ed557aa8139,sched/core / kcov: avoid kcov_area during task switch,kernel/sched/core.c,4
+124,d7822b1e24f2,rseq: Introduce restartable sequences system call,kernel/sched/core.c,2
+125,7af443ee1697,"sched/core: Require cpu_active() in select_task_rq(), for user tasks",kernel/sched/core.c,1
+126,175f0e25abea,sched/core: Fix rules for running on online && !active CPUs,kernel/sched/core.c,30
+127,c3442697c2d7,softirq: Eliminate unused cond_resched_softirq() macro,kernel/sched/core.c,14
+128,943d355d7fee,"sched/core: Distinguish between idle_cpu() calls based on desired effect, introduce available_idle_cpu()",kernel/sched/core.c,14
+129,137844759843,sched/numa: Stagger NUMA balancing scan periods for new threads,kernel/sched/core.c,1
+130,7281c8dec8a8,sched/core: Fix possible Spectre-v1 indexing for sched_prio_to_weight[],kernel/sched/core.c,6
+131,247f2f6f3c70,sched/core: Don't schedule threads on pre-empted vCPUs,kernel/sched/core.c,3
+132,b5bf9a90bbeb,sched/core: Introduce set_special_state(),kernel/sched/core.c,1
+133,85f1abe0019f,"kthread, sched/wait: Fix kthread_parkme() completion issue",kernel/sched/core.c,21
+134,3eda69c92d47,kernel/fork.c: detect early free of a live mm,kernel/sched/core.c,1
+135,adcc8da8859b,sched/core: Simplify helpers for rq clock update skip requests,kernel/sched/core.c,1
+136,7d4dd4f159b9,sched: add do_sched_yield() helper; remove in-kernel call to sched_yield(),kernel/sched/core.c,6
+137,b720342849fe,sched/core: Update preempt_notifier_key to modern API,kernel/sched/core.c,6
+138,00357f5ec5d6,sched/nohz: Clean up nohz enter/exit,kernel/sched/core.c,1
+139,e022e0d38ad4,sched/fair: Update blocked load from NEWIDLE,kernel/sched/core.c,1
+140,b7031a02ec75,sched/fair: Add NOHZ_STATS_KICK,kernel/sched/core.c,2
+141,a22e47a4e3f5,sched/core: Convert nohz_flags to atomic_t,kernel/sched/core.c,3
+142,14a7405b2e81,sched/core: Undefine tracepoint creation at the end of core.c,kernel/sched/core.c,2
+143,325ea10c0809,sched/headers: Simplify and clean up header usage in the scheduler,kernel/sched/core.c,13
+144,97fb7a0a8944,sched: Clean up and harmonize the coding style of the scheduler code base,kernel/sched/core.c,3
+145,dcdedb24159b,sched/nohz: Remove the 1 Hz tick code,kernel/sched/core.c,29
+146,d84b31313ef8,sched/isolation: Offload residual 1Hz scheduler tick,kernel/sched/core.c,92
+147,77a021be383e,sched/core: Rename init_rq_hrtick() to hrtick_rq_init(),kernel/sched/core.c,3
+148,269d599271fa,sched/core: Fix DEBUG_SPINLOCK annotation for rq->lock,kernel/sched/core.c,16
+149,c53593e5cb69,"sched, cgroup: Don't reject lower cpu.max on ancestors",kernel/sched/core.c,10
+150,4de373a12f3c,"cpumask: make cpumask_size() return ""unsigned int""",kernel/sched/core.c,1
+151,32e839dda3ba,sched/fair: Use a recently used CPU as an idle candidate and the basis for SIS,kernel/sched/core.c,1
+152,b85c8b71bf8d,sched/core: Optimize ttwu_stat(),kernel/sched/core.c,8
+153,70216e18e519,"membarrier: Provide core serializing command, *_SYNC_CORE",kernel/sched/core.c,13
+154,306e060435d7,membarrier: Document scheduler barrier requirements,kernel/sched/core.c,26
+155,3ccfebedd8cf,"powerpc, membarrier: Skip memory barrier in switch_mm()",kernel/sched/core.c,10
+156,c96f5471ce7d,delayacct: Account blkio completion on the correct task,kernel/sched/core.c,3
+157,794a56ebd9a5,sched/cpufreq: Change the worker kthread to SCHED_DEADLINE,kernel/sched/core.c,11
+158,34be39305a77,"sched/deadline: Implement ""runtime overrun signal"" support",kernel/sched/core.c,1
+159,31cb1bc0dc94,sched/core: Rework and clarify prepare_lock_switch(),kernel/sched/core.c,49
+160,2064a5ab0470,sched/core: Fix kernel-doc warnings after code movement,kernel/sched/core.c,11
+161,11db855c3d06,"Revert ""cpuset: Make cpuset hotplug synchronous""",kernel/sched/core.c,1
+162,a0982dfa03ef,sched: Stop resched_cpu() from sending IPIs to offline CPUs,kernel/sched/core.c,2
+163,1599a185f0e6,cpuset: Make cpuset hotplug synchronous,kernel/sched/core.c,1
+164,765cc3a4b224,sched/core: Optimize sched_feat() for !CONFIG_SCHED_DEBUG builds,kernel/sched/core.c,6
+165,edb9382175c3,sched/isolation: Move isolcpus= handling to the housekeeping code,kernel/sched/core.c,1
+166,de201559df87,sched/isolation: Introduce housekeeping flags,kernel/sched/core.c,4
+167,204c083a0093,sched/isolation: Rename is_housekeeping_cpu() to housekeeping_cpu(),kernel/sched/core.c,3
+168,7863406143d8,sched/isolation: Move housekeeping related code to its own file,kernel/sched/core.c,1
+169,d41bf8c9deae,"cgroup, sched: Move basic cpu stats from cgroup.stat to cpu.stat",kernel/sched/core.c,4
+170,0032f4e88976,rcutorture: Dump writer stack if stalled,kernel/sched/core.c,1
+171,f79c3ad61896,"sched,rcu: Make cond_resched() provide RCU quiescent state",kernel/sched/core.c,1
+172,7c2102e56a3f,sched: Make resched_cpu() unconditional,kernel/sched/core.c,1
+173,0d5936344f30,sched: Implement interface for cgroup unified hierarchy,kernel/sched/core.c,171
+174,a1f7164c7b8b,sched: Misc preps for cgroup unified hierarchy interface,kernel/sched/core.c,4
+175,9059393e4ec1,sched/fair: Use reweight_entity() for set_user_nice(),kernel/sched/core.c,15
+176,5d68cc95fb24,sched/debug: Ignore TASK_IDLE for SysRq-W,kernel/sched/core.c,23
+177,abca5fc535a3,"sched_rr_get_interval(): move compat to native, get rid of set_fs()",kernel/sched/core.c,30
+178,4ff9083b8a9a,sched/core: WARN() when migrating to an offline CPU,kernel/sched/core.c,4
+179,50e76632339d,sched/cpuset/pm: Fix cpuset vs. suspend-resume bugs,kernel/sched/core.c,3
+180,22e4ebb97582,membarrier: Provide expedited private command,kernel/sched/core.c,25
+181,23a9b748a3d2,sched: Replace spin_unlock_wait() with lock/unlock pair,kernel/sched/core.c,2
+182,d89e588ca408,locking: Introduce smp_mb__after_spinlock(),kernel/sched/core.c,2
+183,20435d84e5f2,sched/debug: Intruduce task_state_to_char() helper function,kernel/sched/core.c,4
+184,18f08dae1999,sched/core: Remove unnecessary initialization init_idle_bootup_task(),kernel/sched/core.c,5
+185,5b713a3d949b,sched/core: Reuse put_prev_task(),kernel/sched/core.c,1
+186,955dbdf4ce87,sched: Allow migrating kthreads into online but inactive CPUs,kernel/sched/core.c,7
+187,bf50f0e8a030,sched/core: Fix some documentation build warnings,kernel/sched/core.c,1
+188,8887cd99038b,sched/rt: Move RT related code from sched/core.c to sched/rt.c,kernel/sched/core.c,315
+189,06a76fe08d4d,sched/deadline: Move DL related code from sched/core.c to sched/deadline.c,kernel/sched/core.c,6
+190,e1d4eeec5aaa,sched/cpuset: Only offer CONFIG_CPUSETS if SMP is enabled,kernel/sched/core.c,3
+191,5822a454d6d2,sched/wait: Move bit_wait_table[] and related functionality from sched/core.c to sched/wait_bit.c,kernel/sched/core.c,2
+192,ac6424b981bc,sched/wait: Rename wait_queue_t => wait_queue_entry_t,kernel/sched/core.c,1
+193,252d2a4117bc,sched/core: Idle_task_exit() shouldn't use switch_mm_irqs_off(),kernel/sched/core.c,1
+194,d7d34d5e4614,sched: Rely on synchronize_rcu_mult() de-duplication,kernel/sched/core.c,1
+195,f5832c1998af,sched/core: Omit building stop_sched_class when !SMP,kernel/sched/core.c,30
+196,3effcb4247e7,sched/deadline: Use the revised wakeup rule for suspending constrained dl tasks,kernel/sched/core.c,2
+197,daec57983670,sched/deadline: Reclaim bandwidth not used by dl tasks,kernel/sched/core.c,10
+198,2d4283e9d583,sched/deadline: Make GRUB a task's flag,kernel/sched/core.c,2
+199,4da3abcefe17,sched/deadline: Do not reclaim the whole CPU bandwidth,kernel/sched/core.c,11
+200,c52f14d38462,sched/deadline: Implement GRUB accounting,kernel/sched/core.c,2
+201,387e31300b57,sched/deadline: Fix the update of the total -deadline utilization,kernel/sched/core.c,14
+202,209a0cbda7a0,sched/deadline: Improve the tracking of active utilization,kernel/sched/core.c,3
+203,1c3c5eab1715,sched/core: Enable might_sleep() and smp_processor_id() checks early,kernel/sched/core.c,3
+204,896bbb252258,sched/core: Allow __sched_setscheduler() in interrupts when PI is not used,kernel/sched/core.c,2
+205,73215849dfbf,sched/core: Use the new llist_for_each_entry_safe() primitive,kernel/sched/core.c,3
+206,8d5dc5126bb2,sched/topology: Small cleanup,kernel/sched/core.c,1
+207,2e44b7ddf8ab,sched/clock: Use late_initcall() instead of sched_init_smp(),kernel/sched/core.c,2
+208,8663effb24f9,sched/core: Call __schedule() from do_idle() without enabling preemption,kernel/sched/core.c,25
+209,bcbfdd01dce5,rcu: Make non-preemptive schedule be Tasks RCU quiescent state,kernel/sched/core.c,1
+210,30e03acda5fd,cpuset: Remove cpuset_update_active_cpus()'s parameter.,kernel/sched/core.c,2
+211,b91473ff6e97,"sched,tracing: Update trace_sched_pi_setprio()",kernel/sched/core.c,1
+212,acd58620e415,sched/rtmutex: Refactor rt_mutex_setprio(),kernel/sched/core.c,53
+213,e96a7705e7d3,sched/rtmutex/deadline: Fix a PI crash for deadline tasks,kernel/sched/core.c,2
+214,d7921a5ddab8,sched/core: Fix rq lock pinning warning after call balance callbacks,kernel/sched/core.c,3
+215,15ff991e8047,sched/core: Avoid double update_rq_clock() in move_queued_task(),kernel/sched/core.c,2
+216,7a57f32a4d5c,sched/core: Avoid obvious double update_rq_clock(),kernel/sched/core.c,10
+217,bce4dc80c66a,sched/core: Simplify update_rq_clock() in __schedule(),kernel/sched/core.c,3
+218,77558e4d01ac,sched/core: Make sched_ttwu_pending() atomic in time,kernel/sched/core.c,3
+219,7134b3e94161,sched/core: Add ENQUEUE_NOCLOCK to ENQUEUE_RESTORE,kernel/sched/core.c,4
+220,0a67d1ee30ef,"sched/core: Add {EN,DE}QUEUE_NOCLOCK flags",kernel/sched/core.c,8
+221,8a8c69c32778,sched/core: Add rq->lock wrappers,kernel/sched/core.c,74
+222,26ae58d23b94,sched/core: Add WARNING for multiple update_rq_clock() calls,kernel/sched/core.c,3
+223,0ba87bb27d66,"sched/core: Fix pick_next_task() for RT,DL",kernel/sched/core.c,8
+224,ef8bd77f332b,sched/headers: Prepare for new header dependencies before moving code to <linux/sched/hotplug.h>,kernel/sched/core.c,1
+225,4f17722c7256,sched/headers: Prepare for new header dependencies before moving code to <linux/sched/loadavg.h>,kernel/sched/core.c,1
+226,ae7e81c077d6,sched/headers: Prepare for new header dependencies before moving code to <uapi/linux/sched/types.h>,kernel/sched/core.c,1
+227,e601757102cf,sched/headers: Prepare for new header dependencies before moving code to <linux/sched/clock.h>,kernel/sched/core.c,1
+228,f9411ebe3d85,rcu: Separate the RCU synchronization types and APIs into <linux/rcupdate_wait.h>,kernel/sched/core.c,1
+229,4b53a3412d66,sched/core: Remove the tsk_nr_cpus_allowed() wrapper,kernel/sched/core.c,1
+230,0c98d344fe5c,sched/core: Remove the tsk_cpus_allowed() wrapper,kernel/sched/core.c,10
+231,59ddbcb2f45b,sched/core: Move the get_preempt_disable_ip() inline to sched/core.c,kernel/sched/core.c,9
+232,c930b2c0de32,sched/core: Convert ___assert_task_state() link time assert to BUILD_BUG_ON(),kernel/sched/core.c,3
+233,f1f1007644ff,mm: add new mmgrab() helper,kernel/sched/core.c,2
+234,96b777452d88,sched/cgroup: Move sched_online_group() back into css_online() to fix crash,kernel/sched/core.c,12
+235,a499c3ead88c,sched/fair: Update rq clock before changing a task's CPU affinity,kernel/sched/core.c,1
+236,8cb68b343a66,sched/core: Fix update_rq_clock() splat on hotplug (and suspend/resume),kernel/sched/core.c,4
+237,fd4a61e08aa7,sched/core: Fix build paravirt build on arm and arm64,kernel/sched/core.c,3
+238,bb3bac2ca9a3,sched/core: Remove unlikely() annotation from sched_move_task(),kernel/sched/core.c,2
+239,f2cb13609d53,sched/topology: Split out scheduler topology code from core.c into topology.c,kernel/sched/core.c,3
+240,004172bdad64,sched/core: Remove unnecessary #include headers,kernel/sched/core.c,10
+241,535b9552bb81,sched/rq_clock: Consolidate the ordering of the rq_clock methods,kernel/sched/core.c,78
+242,d1ccc66df8bf,sched/core: Clean up comments,kernel/sched/core.c,182
+243,975e155ed873,sched/rt: Show the 'sched_rr_timeslice' SCHED_RR timeslice tuning knob in milliseconds,kernel/sched/core.c,3
+244,4b12db939166,sched/core: Fix &rd->cpudl memory leak,kernel/sched/core.c,3
+245,92c99ac82993,sched/core: Fix &rd->rto_mask memory leak,kernel/sched/core.c,1
+246,4d25b35ea372,sched/fair: Restore previous rq_flags when migrating tasks in hotplug,kernel/sched/core.c,9
+247,1b1d62254df0,sched/core: Add missing update_rq_clock() call in sched_move_task(),kernel/sched/core.c,1
+248,49ee576809d8,sched/core: Optimize pick_next_task() for idle_sched_class,kernel/sched/core.c,2
+249,10ab56434f2f,sched/core: Separate out io_schedule_prepare() and io_schedule_finish(),kernel/sched/core.c,28
+250,e33a9bba85a8,sched/core: move IO scheduling accounting from io_schedule_timeout() into scheduler,kernel/sched/core.c,61
+251,9881b024b7d7,sched/clock: Delay switching sched_clock to stable,kernel/sched/core.c,4
+252,cb42c9a3ebbb,sched/core: Add debugging code to catch missing update_rq_clock() calls,kernel/sched/core.c,7
+253,2fb8d36787af,sched/core: Add missing update_rq_clock() call in set_user_nice(),kernel/sched/core.c,2
+254,80f5c1b84baa,sched/core: Add missing update_rq_clock() in detach_task_cfs_rq(),kernel/sched/core.c,3
+255,4126bad67173,sched/core: Add missing update_rq_clock() in post_init_entity_util_avg(),kernel/sched/core.c,1
+256,92509b732baf,sched/core: Reset RQCF_ACT_SKIP before unpinning rq->lock,kernel/sched/core.c,4
+257,d8ac897137a2,sched/core: Add wrappers for lockdep_(un)pin_lock(),kernel/sched/core.c,40
+258,8b0e195314fa,ktime: Cleanup ktime_set() usage,kernel/sched/core.c,1
+259,c1de45ca831a,sched/idle: Add support for tasks that inject idle,kernel/sched/core.c,1
+260,afe06efdf07c,sched: Extend scheduler's asym packing,kernel/sched/core.c,15
+261,9c2791f936ef,sched/fair: Fix hierarchical order in rq->leaf_cfs_rq_list,kernel/sched/core.c,1
+262,bf475ce0a3dd,sched/fair: Add per-CPU min capacity to sched_group_capacity,kernel/sched/core.c,2
+263,8243d5597793,sched/core: Remove pointless printout in sched_show_task(),kernel/sched/core.c,9
+264,382005027fed,sched/core: Fix oops in sched_show_task(),kernel/sched/core.c,3
+265,9dcb8b685fc3,mm: remove per-zone hashtable of bitlock waitqueues,kernel/sched/core.c,16
+266,3ca0ff571b09,locking/mutex: Rework mutex::owner,kernel/sched/core.c,1
+267,a22502382803,sched/core: Explain sleep/wakeup in a better way,kernel/sched/core.c,9
+268,49bd21efe7fc,sched/core: Fix set_user_nice(),kernel/sched/core.c,7
+269,b2bf6c314e3a,sched/fair: Introduce set_curr_task() helper,kernel/sched/core.c,5
+270,a458ae2ea616,"sched/core, ia64: Rename set_curr_task()",kernel/sched/core.c,1
+271,a399d233078e,sched/core: Fix incorrect utilization accounting when switching to fair class,kernel/sched/core.c,10
+272,1b568f0aabf2,sched/core: Optimize SCHED_SMT,kernel/sched/core.c,19
+273,10e2f1acd010,sched/core: Rewrite and improve select_idle_siblings(),kernel/sched/core.c,3
+274,0e369d757578,sched/core: Replace sd_busy/nr_busy_cpus with sched_domain_shared,kernel/sched/core.c,5
+275,24fc7edb92ee,sched/core: Introduce 'struct sched_domain_shared',kernel/sched/core.c,39
+276,16f3ef46805a,sched/core: Restructure destroy_sched_domain(),kernel/sched/core.c,11
+277,f39180efe573,sched/core: Remove unused @cpu argument from destroy_sched_domain*(),kernel/sched/core.c,6
+278,8f37961cf223,"sched/core, x86/topology: Fix NUMA in package topology bug",kernel/sched/core.c,3
+279,a18a579e5f84,sched/debug: Hide printk() by default,kernel/sched/core.c,3
+280,35a773a07926,sched/core: Avoid _cond_resched() for PREEMPT=y,kernel/sched/core.c,2
+281,9af6528ee9b6,sched/core: Optimize __schedule(),kernel/sched/core.c,27
+282,bf89a304722f,stop_machine: Avoid a sleep and wakeup in stop_one_cpu(),kernel/sched/core.c,6
+283,0b8473570ce1,sched/core: Remove unnecessary initialization in sched_init(),kernel/sched/core.c,5
+284,68f24b08ee89,sched/core: Free the stack early if CONFIG_THREAD_INFO_IN_TASK,kernel/sched/core.c,4
+285,4fa8d299b43a,sched/debug: Remove several CONFIG_SCHEDSTATS guards,kernel/sched/core.c,14
+286,ae92882e5646,sched/debug: Clean up schedstat macros,kernel/sched/core.c,11
+287,efca03ecbe29,schedcore: Remove duplicated init_task's preempt_notifiers init,kernel/sched/core.c,4
+288,135e8c9250dd,sched/core: Fix a race between try_to_wake_up() and a woken up task,kernel/sched/core.c,22
+289,01175255fd8e,sched: Remove __schedule() non-standard frame annotation,kernel/sched/core.c,1
+290,379d9ecb3cc9,sched: Make wake_up_nohz_cpu() handle CPUs going offline,kernel/sched/core.c,7
+291,cd92bfd3b8cb,sched/core: Store maximum per-CPU capacity in root domain,kernel/sched/core.c,12
+292,9ee1cda5ee25,sched/core: Enable SD_BALANCE_WAKE for asymmetric capacity systems,kernel/sched/core.c,7
+293,3676b13e8524,sched/core: Pass child domain into sd_init(),kernel/sched/core.c,4
+294,1f6e6c7cb9bc,sched/core: Introduce SD_ASYM_CPUCAPACITY sched_domain topology flag,kernel/sched/core.c,4
+295,0e6d2a67a413,sched/core: Remove unnecessary NULL-pointer check,kernel/sched/core.c,2
+296,94f438c84e85,sched/core: Clarify SD_flags comment,kernel/sched/core.c,12
+297,f0b22e39e340,"sched/debug: Add taint on ""BUG: Sleeping function called from invalid context""",kernel/sched/core.c,1
+298,d1c6d149cf04,"sched/debug: Make the ""Preemption disabled at ..."" message more useful",kernel/sched/core.c,13
+299,9279e0d2e565,sched/core: Add documentation for 'cookie' argument,kernel/sched/core.c,1
+300,a1fd46565bea,sched/core: Fix one typo,kernel/sched/core.c,1
+301,6075620b0590,sched/cputime: Mitigate performance regression in times()/clock_gettime(),kernel/sched/core.c,19
+302,d60585c5766e,sched/core: Correct off by one bug in load migration calculation,kernel/sched/core.c,4
+303,748c7201e622,sched/core: Panic on scheduling while atomic bugs if kernel.panic_on_warn is set,kernel/sched/core.c,3
+304,599b4840b0ea,sched/core: Fix sched_getaffinity() return value kerneldoc comment,kernel/sched/core.c,2
+305,8663e24d56dc,sched/fair: Reorder cgroup creation code,kernel/sched/core.c,2
+306,7dc603c9028e,sched/fair: Fix PELT integrity for new tasks,kernel/sched/core.c,23
+307,ea86cb4b7621,sched/cgroup: Fix cpu_cgroup_fork() handling,kernel/sched/core.c,41
+308,e210bffd39d0,sched/fair: Fix and optimize the fork() path,kernel/sched/core.c,11
+309,feb245e304f3,sched/core: Allow kthreads to fall back to online && !active cpus,kernel/sched/core.c,3
+310,57675cb976ef,"kernel/sysrq, watchdog, sched/core: Reset watchdog on all CPUs while processing sysrq-w",kernel/sched/core.c,4
+311,1f03e8d29192,locking/barriers: Replace smp_cond_acquire() with smp_cond_load_acquire(),kernel/sched/core.c,4
+312,3d89e5478bf5,sched/cputime: Fix prev steal time accouting during CPU hotplug,kernel/sched/core.c,1
+313,b7fa30c9cc48,sched/fair: Fix post_init_entity_util_avg() serialization,kernel/sched/core.c,1
+314,29d6455178a0,sched: panic on corrupted stack end,kernel/sched/core.c,2
+315,4698f88c06b8,sched/debug: Fix 'schedstats=enable' cmdline option,kernel/sched/core.c,21
+316,b7e7ade34e61,sched/core: Fix remote wakeups,kernel/sched/core.c,11
+317,50605ffbdaf6,sched/core: Provide a tsk_nr_cpus_allowed() helper,kernel/sched/core.c,1
+318,444969223c81,sched/nohz: Fix affine unpinned timers mess,kernel/sched/core.c,4
+319,59efa0bac9cf,sched/core: Kill sched_class::task_waking to clean up the migration logic,kernel/sched/core.c,1
+320,b5179ac70de8,sched/fair: Prepare to fix fairness problems on migration,kernel/sched/core.c,21
+321,58fe9c4621b7,sched/core: Fix comment typo in wake_q_add(),kernel/sched/core.c,1
+322,8c5e95548d41,sched/core: Remove unused variable,kernel/sched/core.c,2
+323,e5ef27d0f5ac,sched: Make hrtick_notifier an explicit call,kernel/sched/core.c,1
+324,20a5c8cc74ad,sched/fair: Make ilb_notifier an explicit call,kernel/sched/core.c,1
+325,f2785ddb5367,sched/hotplug: Move migration CPU_DYING to sched_cpu_dying(),kernel/sched/core.c,22
+326,7d97669933eb,sched/migration: Move CPU_ONLINE into scheduler state,kernel/sched/core.c,22
+327,e9cd8fa4fcfd,sched/migration: Move calc_load_migrate() into CPU_DYING,kernel/sched/core.c,3
+328,94baf7a5d882,sched/migration: Move prepare transition to SCHED_STARTING state,kernel/sched/core.c,11
+329,b2454caa8977,sched/hotplug: Move sync_rcu to be with set_cpu_active(false),kernel/sched/core.c,14
+330,40190a78f85f,sched/hotplug: Convert cpu_[in]active notifiers to state machine,kernel/sched/core.c,21
+331,c6d2c7475ced,sched: Move sched_domains_numa_masks_clear() to DOWN_PREPARE,kernel/sched/core.c,3
+332,135fb3e19773,sched: Consolidate the notifier maze,kernel/sched/core.c,69
+333,e26fbffd32c2,sched: Allow hotplug notifiers to be setup early,kernel/sched/core.c,36
+334,9cf7243d5d83,sched: Make set_cpu_rq_start_time() a built in hotplug state,kernel/sched/core.c,9
+335,e9d867a67fd0,sched: Allow per-cpu kernel threads to run on online && !active,kernel/sched/core.c,42
+336,e7904a28f533,"locking/lockdep, sched/core: Implement a better lock pinning scheme",kernel/sched/core.c,42
+337,eb58075149b7,sched/core: Introduce 'struct rq_flags',kernel/sched/core.c,50
+338,3e71a462dd48,sched/core: Move task_rq_lock() out of line,kernel/sched/core.c,65
+339,f98db6013c55,sched/core: Add switch_mm_irqs_off() and use it in the scheduler,kernel/sched/core.c,3
+340,2548d546d40c,"nohz/full, sched/rt: Fix missed tick-reenabling bug in sched_can_stop_tick()",kernel/sched/core.c,16
+341,fec148c000d0,sched/deadline: Fix a bug in dl_overflow(),kernel/sched/core.c,2
+342,9fd81dd5ce0b,sched/fair: Optimize !CONFIG_NO_HZ_COMMON CPU load updates,kernel/sched/core.c,2
+343,cee1afce3053,sched/fair: Gather CPU load functions under a more conventional namespace,kernel/sched/core.c,1
+344,fb90a6e93c06,sched/debug: Don't dump sched debug info in SysRq-W,kernel/sched/core.c,2
+345,2b8c41daba32,sched/fair: Initiate a new task's util avg to a bounded value,kernel/sched/core.c,2
+346,47252cfbac03,sched/core: Add preempt checks in preempt_schedule() code,kernel/sched/core.c,59
+347,5529578a2728,"locking/atomic, sched: Unexport fetch_or()",kernel/sched/core.c,18
+348,2f5177f0fd7e,sched/cgroup: Fix/cleanup cgroup teardown/init,kernel/sched/core.c,14
+349,e1b77c92981a,sched/kasan: remove stale KASAN poison after hotplug,kernel/sched/core.c,3
+350,72f9f3fdc928,sched/deadline: Remove dl_new from struct sched_dl_entity,kernel/sched/core.c,1
+351,e9532e69b8d1,sched/cputime: Fix steal time accounting vs. CPU hotplug,kernel/sched/core.c,1
+352,76d92ac305f2,sched: Migrate sched to use new tick dependency mask model,kernel/sched/core.c,20
+353,9b7f6597f013,sched/core: Get rid of 'cpu' argument in wq_worker_sleeping(),kernel/sched/core.c,1
+354,949338e35131,cpu/hotplug: Move scheduler cpu_online notifier to hotplug core,kernel/sched/core.c,10
+355,f904f58263e1,sched/debug: Fix preempt_disable_ip recording for preempt_disable(),kernel/sched/core.c,2
+356,3866e845ed52,sched/debug: Move sched_domain_sysctl to debug.c,kernel/sched/core.c,178
+357,d6ca41d7922c,sched/debug: Move the /sys/kernel/debug/sched_features file setup into debug.c,kernel/sched/core.c,133
+358,ff77e4685359,sched/rt: Fix PI handling vs. sched_setscheduler(),kernel/sched/core.c,22
+359,6fe1f348b3dd,sched/cgroup: Fix cgroup entity load tracking tear-down,kernel/sched/core.c,1
+360,049369487e20,sched: Always inline context_switch(),kernel/sched/core.c,1
+361,8e05e96ac949,sched: Mark __schedule() stack frame as non-standard,kernel/sched/core.c,2
+362,b38e42e962db,cgroup: convert cgroup_subsys flag fields to bool bitfields,kernel/sched/core.c,1
+363,3223d052b79e,sched/core: Remove dead statement in __schedule(),kernel/sched/core.c,1
+364,5fd7a09cfb8c,atomic: Export fetch_or(),kernel/sched/core.c,14
+365,cb2517653fcc,sched/debug: Make schedstats a runtime tunable that is disabled by default,kernel/sched/core.c,68
+366,a6e4491c682a,sched/isolcpus: Output warning when the 'isolcpus=' kernel parameter is invalid,kernel/sched/core.c,7
+367,5955102c9984,wrappers for ->i_mutex access,kernel/sched/core.c,2
+368,9c03ee147193,sched: Fix crash in sched_init_numa(),kernel/sched/core.c,1
+369,46a5d164db53,rcu: Stop disabling interrupts in scheduler fastpaths,kernel/sched/core.c,4
+370,b0367629acf6,sched/fair: Move the cache-hot 'load_avg' variable into its own cacheline,kernel/sched/core.c,7
+371,ed82b8a1ff76,sched/core: Move the sched_to_prio[] arrays out of line,kernel/sched/core.c,43
+372,ad936d8658fd,sched/fair: Make it possible to account fair load avg consistently,kernel/sched/core.c,4
+373,8643cda549ca,"sched/core, locking: Document Program-Order guarantees",kernel/sched/core.c,91
+374,b3e0b1b6d841,"locking, sched: Introduce smp_cond_acquire() and use it",kernel/sched/core.c,1
+375,ecf7d01c229d,sched/core: Fix an SMP ordering race in try_to_wake_up() vs. schedule(),kernel/sched/core.c,19
+376,b75a22531588,sched/core: Better document the try_to_wake_up() barriers,kernel/sched/core.c,7
+377,8295c69925ad,sched/core: Clear the root_domain cpumasks in init_rootdomain(),kernel/sched/core.c,4
+378,119d6f6a3be8,sched/core: Remove false-positive warning from wake_up_process(),kernel/sched/core.c,1
+379,b53202e63089,cgroup: kill cgrp_ss_priv[CGROUP_CANFORK_COUNT] and friends,kernel/sched/core.c,1
+380,1f7dd3e5a6e4,cgroup: fix handling of multi-destination migration from subtree_control enabling,kernel/sched/core.c,6
+381,01783e0d4527,sched/core: Use list_is_singular() in sched_can_stop_tick(),kernel/sched/core.c,1
+382,3ea94de15ce9,sched/core: Fix incorrect wait time and wait count statistics,kernel/sched/core.c,13
+383,0aaafaabfcba,sched/core: Add missing lockdep_unpin() annotations,kernel/sched/core.c,8
+384,e73e85f05938,sched: Don't scan all-offline ->cpus_allowed twice if !CONFIG_CPUSETS,kernel/sched/core.c,7
+385,62694cd51322,sched: Move cpu_active() tests from stop_two_cpus() into migrate_swap_stop(),kernel/sched/core.c,4
+386,07f06cb3b5f6,sched: Start stopper early,kernel/sched/core.c,9
+387,0baabb385eb4,"nohz: Revert ""nohz: Set isolcpus when nohz_full is set""",kernel/sched/core.c,3
+388,2e91fa7f6d45,cgroup: keep zombies associated with their original cgroups,kernel/sched/core.c,16
+389,84778472e1b6,sched: Export sched_setscheduler_nocheck,kernel/sched/core.c,1
+390,5a4fd0368517,sched/core: Remove a parameter in the migrate_task_rq() function,kernel/sched/core.c,1
+391,ce03e4137bb2,sched/core: Drop unlikely behind BUG_ON(),kernel/sched/core.c,1
+392,1de64443d755,sched/core: Fix task and run queue sched_info::run_delay inconsistencies,kernel/sched/core.c,25
+393,e2bf1c4b17af,sched/core: Add preempt_count invariant check,kernel/sched/core.c,4
+394,499d79559ffe,sched/core: More notrace annotations,kernel/sched/core.c,3
+395,da7142e2ed73,sched/core: Simplify preempt_count tests,kernel/sched/core.c,1
+396,1dc0fffc48af,sched/core: Robustify preemption leak checks,kernel/sched/core.c,3
+397,3d8f74dd4ca1,sched/core: Stop setting PREEMPT_ACTIVE,kernel/sched/core.c,6
+398,c73464b1c843,sched/core: Fix trace_sched_switch(),kernel/sched/core.c,1
+399,fc13aebab7d8,sched/core: Add preempt argument to __schedule(),kernel/sched/core.c,6
+400,609ca066386b,sched/core: Create preempt_count invariant,kernel/sched/core.c,21
+401,b99def8b9614,sched/core: Rework TASK_DEAD preemption exception,kernel/sched/core.c,13
+402,95913d97914f,sched/core: Fix TASK_DEAD race in finish_task_switch(),kernel/sched/core.c,5
+403,c6e1e7b5b7f0,sched/core: Make 'sched_domain_topology' declaration static,kernel/sched/core.c,2
+404,00cc1633816d,sched: access local runqueue directly in single_task_running,kernel/sched/core.c,11
+405,20f9cd2acb1d,sched/core: Make policy-testing consistent,kernel/sched/core.c,3
+406,de9b8f5dcbd9,sched: Fix crash trying to dequeue/enqueue the idle thread,kernel/sched/core.c,11
+407,98d8fd812667,sched/fair: Initialize task load and utilization before placing task on rq,kernel/sched/core.c,2
+408,2a595721a1fa,sched/numa: Convert sched_numa_balancing to a static_branch,kernel/sched/core.c,7
+409,2b49d84b259f,sched/numa: Remove the NUMA sched_feature,kernel/sched/core.c,6
+410,c3b9bc5bbfc3,sched/numa: Disable sched_numa_balancing on UMA systems,kernel/sched/core.c,5
+411,78a9c54649ea,sched/numa: Rename numabalancing_enabled to sched_numa_balancing,kernel/sched/core.c,3
+412,446685e9bfa1,sched/core: Delete PF_EXITING checks from cpu_cgroup_exit() callback,kernel/sched/core.c,8
+413,bc54da2176cd,sched/core: Remove unused argument from sched_class::task_move_group,kernel/sched/core.c,1
+414,5473e0cc37c0,sched: 'Annotate' migrate_tasks(),kernel/sched/core.c,26
+415,9642d18eee2c,nohz: Affine unpinned timers to housekeepers,kernel/sched/core.c,5
+416,dd9d3843755d,sched: Fix cpu_active_mask/cpu_online_mask race,kernel/sched/core.c,8
+417,6c37067e2786,sched: Change the sched_class::set_cpus_allowed() calling context,kernel/sched/core.c,23
+418,c5b280384081,sched: Make sched_class::set_cpus_allowed() unconditional,kernel/sched/core.c,11
+419,25834c73f93a,sched: Fix a race between __kthread_bind() and sched_setaffinity(),kernel/sched/core.c,32
+420,e237882b8f83,sched/numa: Fix NUMA_DIRECT topology identification,kernel/sched/core.c,3
+421,3c8e47935569,sched: Remove finish_arch_switch(),kernel/sched/core.c,1
+422,540247fb5ddf,sched/fair: Init cfs_rq's sched_entity load average,kernel/sched/core.c,1
+423,9d89c257dfb9,sched/fair: Rewrite runnable load and utilization average tracking,kernel/sched/core.c,3
+424,fe32d3cd5e8e,sched/preempt: Fix cond_resched_lock() and cond_resched_softirq(),kernel/sched/core.c,3
+425,fbd705a0c618,sched: Introduce the 'trace_sched_waking' tracepoint,kernel/sched/core.c,7
+426,781b0203423c,"sched, sysctl: Delete an unnecessary check before unregister_sysctl_table()",kernel/sched/core.c,1
+427,e33886b38cc8,"locking/static_keys: Add static_key_{en,dis}able() helpers",kernel/sched/core.c,2
+428,de734f89b67c,nohz: Remove useless argument on tick_nohz_task_switch(),kernel/sched/core.c,1
+429,f78f5b90c4ff,rcu: Rename rcu_lockdep_assert() to RCU_LOCKDEP_WARN(),kernel/sched/core.c,4
+430,7e47682ea555,cgroup: allow a cgroup subsystem to reject a fork,kernel/sched/core.c,1
+431,f6db83479932,sched/stat: Simplify the sched_info accounting dependency,kernel/sched/core.c,1
+432,2ecd9d29abb1,"sched, preempt_notifier: separate notifier registration from static_key inc/dec",kernel/sched/core.c,15
+433,bc7a34b8b9eb,timer: Reduce timer migration overhead if disabled,kernel/sched/core.c,3
+434,6713c3aa7f63,sched: Remove superfluous resetting of the p->dl_throttled flag,kernel/sched/core.c,1
+435,1cde2930e154,sched/preempt: Add static_key() to preempt_notifiers,kernel/sched/core.c,23
+436,d84525a845cc,sched/preempt: Fix preempt notifiers documentation about hlist_del() within unsafe iteration,kernel/sched/core.c,1
+437,cbce1a686700,"sched,lockdep: Employ lock pinning",kernel/sched/core.c,39
+438,5e16bbc2fb40,sched: Streamline the task migration locking a little,kernel/sched/core.c,34
+439,5cc389bcee08,sched: Move code around,kernel/sched/core.c,178
+440,4c9a4bc89a9c,sched: Allow balance callbacks for check_class_changed(),kernel/sched/core.c,22
+441,dbc7f069b93a,sched: Use replace normalize_task() with __sched_setscheduler(),kernel/sched/core.c,23
+442,e3fca9e7cbfb,sched: Replace post_schedule with a balance callback list,kernel/sched/core.c,24
+443,bff5e48e106b,sched/core: remove __cpuinit section tag that crept back in.,kernel/sched/core.c,1
+444,4eaca0a887ea,preempt: Use preempt_schedule_context() as the official tracing preemption point,kernel/sched/core.c,3
+445,be690035df89,sched: Make preempt_schedule_context() function-tracing safe,kernel/sched/core.c,9
+446,b30f0e3ffedf,sched/preempt: Optimize preemption operations on __schedule() callers,kernel/sched/core.c,9
+447,10d784eae2b4,sched: always use blk_schedule_flush_plug in io_schedule_out,kernel/sched/core.c,1
+448,4cfafd3082af,"sched,perf: Fix periodic timers",kernel/sched/core.c,12
+449,5596d0d591be,sched: always use blk_schedule_flush_plug in io_schedule_out,kernel/sched/core.c,1
+450,ff303e66c240,perf: Fix software migrate events,kernel/sched/core.c,1
+451,7675104990ed,sched: Implement lockless wake-queues,kernel/sched/core.c,46
+452,316c1608d15c,"sched, timer: Convert usages of ACCESS_ONCE() in the scheduler to READ_ONCE()/WRITE_ONCE()",kernel/sched/core.c,2
+453,ce2f5fe46303,sched/core: Remove unnecessary down/up conversion,kernel/sched/core.c,2
+454,3289bdb42988,sched: Move the loadavg code to a more obvious location,kernel/sched/core.c,4
+455,6a82b60da26b,sched/core: Remove __cpuinit section tag that crept back in,kernel/sched/core.c,1
+456,533445c6e533,sched/core: Fix regression in cpuset_cpu_inactive() for suspend,kernel/sched/core.c,12
+457,0782e63bc6fe,sched: Handle priority boosted tasks proper in setscheduler(),kernel/sched/core.c,14
+458,8cb9764fc88b,nohz: Set isolcpus when nohz_full is set,kernel/sched/core.c,3
+459,fafe870f3121,context_tracking: Inherit TIF_NOHZ through forks instead of context switches,kernel/sched/core.c,1
+460,73459e2a1ada,x86: pvclock: Really remove the sched notifier for cross-cpu migrations,kernel/sched/core.c,15
+461,77a4d1a1b9a1,sched: Cleanup bandwidth timers,kernel/sched/core.c,8
+462,4961b6e11825,sched: core: Use hrtimer_start[_expires](),kernel/sched/core.c,8
+463,62a935b256f6,sched/core: Drop debugging leftover trace_printk call,kernel/sched/core.c,1
+464,3c18d447b3b3,sched/core: Check for available DL bandwidth in cpuset_cpu_inactive(),kernel/sched/core.c,28
+465,07c54f7a7ff7,sched/core: Remove unused argument from init_[rt|dl]_rq(),kernel/sched/core.c,2
+466,a1963b81deec,sched/deadline: Fix rt runtime corruption when dl fails its global constraints,kernel/sched/core.c,3
+467,caff37ef96ea,sched: Add SD_PREFER_SIBLING for SMT level,kernel/sched/core.c,1
+468,dc7ff76eadb4,sched: Remove unused struct sched_group_capacity::capacity_orig,kernel/sched/core.c,12
+469,ca6d75e6908e,sched: Add struct rq::cpu_capacity_orig,kernel/sched/core.c,1
+470,0a4e6be9ca17,"x86: kvm: Revert ""remove sched notifier for cross-cpu migrations""",kernel/sched/core.c,15
+471,746db9443ea5,sched: Fix RLIMIT_RTTIME when PI-boosting to RT,kernel/sched/core.c,2
+472,3fa0818b3c85,"sched, isolcpu: make cpu_isolated_map visible outside scheduler",kernel/sched/core.c,3
+473,c467ea763fd5,context_tracking: Rename context symbols to prepare for transition state,kernel/sched/core.c,1
+474,1e78cdbd9b22,sched/rt/nohz: Stop scheduler tick if running realtime task,kernel/sched/core.c,17
+475,2636ed5f8d15,sched/rt: Avoid obvious configuration fail,kernel/sched/core.c,11
+476,1fe89e1b6d27,sched/autogroup: Fix failure to set cpu.rt_runtime_us,kernel/sched/core.c,6
+477,9cff8adeaa34,sched: Prevent recursion in io_schedule(),kernel/sched/core.c,12
+478,06b1f8083d6e,sched: Fix preempt_schedule_common() triggering tracing recursion,kernel/sched/core.c,1
+479,3960c8c0c789,sched: Make dl_task_time() use task_rq_lock(),kernel/sched/core.c,76
+480,74b8a4cb6ce3,sched: Clarify ordering between task_rq_lock() and move_queued_task(),kernel/sched/core.c,16
+481,333470ee46b6,sched: use %*pb[l] to print bitmaps including cpumasks and nodemasks,kernel/sched/core.c,4
+482,bfd9b2b5f80e,sched: Pull resched loop to __schedule() callers,kernel/sched/core.c,7
+483,868933359a3b,sched: Fix hrtick_start() on UP,kernel/sched/core.c,5
+484,75381608e841,sched/deadline: Avoid pointless __setscheduler(),kernel/sched/core.c,15
+485,40767b0dc768,sched/deadline: Fix deadline parameter modification handling,kernel/sched/core.c,28
+486,00845eb968ea,sched: don't cause task state changes in nested sleep debugging,kernel/sched/core.c,2
+487,a18b5d018192,sched: Fix missing preemption opportunity,kernel/sched/core.c,19
+488,bb2bc55a694d,sched: Fix crash if cpuset_cpumask_can_shrink() is passed an empty cpumask,kernel/sched/core.c,3
+489,86038c5ea81b,perf: Avoid horrible stack usage,kernel/sched/core.c,1
+490,9edfbfed3f54,sched/core: Rework rq->clock update skips,kernel/sched/core.c,8
+491,1b537c7d1e58,sched/core: Remove check of p->sched_class,kernel/sched/core.c,6
+492,bb04159df99f,sched/fair: Fix sched_entity::avg::decay_count initialization,kernel/sched/core.c,3
+493,1f8a7633094b,sched/debug: Fix potential call to __ffs(0) in sched_show_task(),kernel/sched/core.c,3
+494,a8b686b3af44,sched/debug: Check for stack overflow in ___might_sleep(),kernel/sched/core.c,3
+495,b74e6278fd6d,sched: Fix KMALLOC_MAX_SIZE overflow during cpumask allocation,kernel/sched/core.c,5
+496,a90e984c8a66,sched_show_task: fix unsafe usage of ->real_parent,kernel/sched/core.c,3
+497,fd7de1e8d5b2,sched: Add missing rcu protection to wake_up_all_idle_cpus,kernel/sched/core.c,7
+498,7cc78f8fa02c,context_tracking: Restore previous state in schedule_user,kernel/sched/core.c,6
+499,6c1d9410f007,sched: Move p->nr_cpus_allowed check to select_task_rq(),kernel/sched/core.c,2
+500,753899183c53,sched/fair: Kill task_struct::numa_entry and numa_group::task_list,kernel/sched/core.c,1
+501,6e998916dfe3,sched/cputime: Fix clock_nanosleep()/clock_gettime() inconsistency,kernel/sched/core.c,11
+502,23cfa361f3e5,sched/cputime: Fix cpu_timer_sample_group() double accounting,kernel/sched/core.c,13
+503,c123588b3b19,sched/numa: Fix out of bounds read in sched_init_numa(),kernel/sched/core.c,4
+504,44dba3d5d6a1,sched: Refactor task_struct to use numa_faults instead of numa_* pointers,kernel/sched/core.c,1
+505,75e23e49dbdd,sched/core: Use dl_bw_of() under rcu_read_lock_sched(),kernel/sched/core.c,6
+506,67dfa1b756f2,sched/deadline: Implement cancel_dl_timer() to use in switched_from_dl(),kernel/sched/core.c,4
+507,e7097e8bd007,sched: Use WARN_ONCE for the might_sleep() TASK_RUNNING test,kernel/sched/core.c,1
+508,f7b8a47da17c,sched: Remove lockdep check in sched_move_task(),kernel/sched/core.c,6
+509,38200cf24702,"rcu: Remove ""cpu"" argument to rcu_note_context_switch()",kernel/sched/core.c,1
+510,3427445afd26,sched: Exclude cond_resched() from nested sleep test,kernel/sched/core.c,9
+511,8eb23b9f35aa,sched: Debug nested sleeps,kernel/sched/core.c,13
+512,f82f80426f7a,sched/deadline: Ensure that updates to exclusive cpusets don't break AC,kernel/sched/core.c,19
+513,7f51412a415d,sched/deadline: Fix bandwidth check/update when migrating tasks between exclusive cpusets,kernel/sched/core.c,51
+514,e2336f6e51ed,sched: Kill task_preempt_count(),kernel/sched/core.c,1
+515,dfa50b605c2a,sched: Make finish_task_switch() return 'struct rq *',kernel/sched/core.c,15
+516,1a43a14a5bd9,sched: Fix schedule_tail() to disable preemption,kernel/sched/core.c,5
+517,e3fe70b1f72e,sched/numa: Classify the NUMA topology of a system,kernel/sched/core.c,53
+518,9942f79baaaf,sched/numa: Export info needed for NUMA balancing on complex topologies,kernel/sched/core.c,3
+519,009f60e27635,sched: stop the unbound recursion in preempt_schedule_context(),kernel/sched/core.c,41
+520,eeb61e53ea19,sched: Fix race between task_group and sched_task_group,kernel/sched/core.c,6
+521,f10e00f4bf36,sched/dl: Use dl_bw_of() under rcu_read_lock_sched(),kernel/sched/core.c,16
+522,f1e3a0932f3a,sched: Use rq->rd in sched_setaffinity() under RCU read lock,kernel/sched/core.c,5
+523,16303ab2fe21,sched: cleanup: Rename 'out_unlock' to 'out_free_new_mask',kernel/sched/core.c,4
+524,66339c31bc39,sched: Use dl_bw_of() under RCU read lock,kernel/sched/core.c,10
+525,c55f5158f560,"sched, mips, ia64: Remove __ARCH_WANT_UNLOCKED_CTXSW",kernel/sched/core.c,6
+526,3472eaa1f12e,"sched: normalize_rt_tasks(): Don't use _irqsave for tasklist_lock, use task_rq_lock()",kernel/sched/core.c,6
+527,8651c65844e9,sched: Fix the task-group check in tg_has_rt_tasks(),kernel/sched/core.c,1
+528,a5e7be3b28a2,sched/deadline: Clear dl_entity params when setscheduling to different class,kernel/sched/core.c,15
+529,9c58c79a8a76,sched: Clean up some typos and grammatical errors in code/comments,kernel/sched/core.c,2
+530,0d9e26329b0c,sched: Add default-disabled option to BUG() when stack end location is overwritten,kernel/sched/core.c,3
+531,a15b12ac36ad,sched: Do not stop cpu in set_cpus_allowed_ptr() if task is not running,kernel/sched/core.c,32
+532,f3cd1c4ec059,sched/core: Use put_prev_task() accessor where possible,kernel/sched/core.c,4
+533,f6be8af1c95d,sched: Add new API wake_up_if_idle() to wake up the idle cpu,kernel/sched/core.c,19
+534,5cd038f53ed9,sched: Migrate waking tasks,kernel/sched/core.c,7
+535,177ef2a6315e,sched/deadline: Fix a precision problem in the microseconds range,kernel/sched/core.c,9
+536,2ee507c47293,sched: Add function single_task_running to let a task check if it is the only task running on a cpu,kernel/sched/core.c,12
+537,a1e01829796a,sched: Remove double_rq_lock() from __migrate_task(),kernel/sched/core.c,15
+538,cca26e8009d1,sched: Teach scheduler to understand TASK_ON_RQ_MIGRATING state,kernel/sched/core.c,9
+539,da0c1e65b51a,sched: Add wrapper for checking task_struct::on_rq,kernel/sched/core.c,41
+540,5d07f4202c5d,sched: s/do_each_thread/for_each_process_thread/ in core.c,kernel/sched/core.c,6
+541,2e39465abc4b,locking: Remove deprecated smp_mb__() barriers,kernel/sched/core.c,16
+542,aaecac4ad46b,sched: Rename a misleading variable in build_overlap_sched_groups(),kernel/sched/core.c,6
+543,372ba8cb46b2,cpuidle: menu: Lookup CPU runqueues less,kernel/sched/core.c,7
+544,c13db6b131a4,sched: Use macro for magic number of -1 for setparam,kernel/sched/core.c,10
+545,6ae72dff3759,sched: Robustify topology setup,kernel/sched/core.c,14
+546,d8d28c8f00e8,sched: Fix sched_setparam() policy == -1 logic,kernel/sched/core.c,3
+547,5cd08fbfdb6b,sched: Fix static_key race with sched_feat(),kernel/sched/core.c,5
+548,8875125efe84,sched: Transform resched_task() into resched_curr(),kernel/sched/core.c,13
+549,466af29bf427,sched/deadline: Kill task_struct->pi_top_task,kernel/sched/core.c,3
+550,5577964e6469,cgroup: rename cgroup_subsys->base_cftypes to ->legacy_cftypes,kernel/sched/core.c,1
+551,0e59bdaea75f,sched/fair: Disable runtime_enabled on dying rq,kernel/sched/core.c,7
+552,4036ac156783,sched: Fix clock_gettime(CLOCK_[PROCESS/THREAD]_CPUTIME_ID) monotonicity,kernel/sched/core.c,11
+553,541b82644d72,sched/core: Fix formatting issues in sched_can_stop_tick(),kernel/sched/core.c,3
+554,4a81e8328d37,rcu: Reduce overhead of cond_resched() checks for RCU,kernel/sched/core.c,1
+555,3882ec643997,nohz: Use IPI implicit full barrier against rq->nr_running r/w,kernel/sched/core.c,5
+556,fd2ac4f4a65a,nohz: Use nohz own full kick on 2nd task enqueue,kernel/sched/core.c,1
+557,53c5fa16b4c8,nohz: Switch to nohz full remote kick on timer enqueue,kernel/sched/core.c,7
+558,e3baac47f0e8,sched/idle: Optimize try-to-wake-up IPI,kernel/sched/core.c,48
+559,67b9ca70c303,sched/idle: Simplify wake_up_idle_cpu(),kernel/sched/core.c,1
+560,dfc68f29ae67,"sched, trace: Add a tracepoint for IPI-less remote wakeups",kernel/sched/core.c,4
+561,5d4dfddd4f02,sched: Rename capacity related flags,kernel/sched/core.c,7
+562,ca8ce3d0b144,sched: Final power vs. capacity cleanups,kernel/sched/core.c,3
+563,ced549fa5fc1,"sched: Remove remaining dubious usage of ""power""",kernel/sched/core.c,3
+564,63b2ca30bdb3,sched: Let 'struct sched_group_power' care about CPU capacity,kernel/sched/core.c,40
+565,fa93384f40de,sched: Fix signedness bug in yield_to(),kernel/sched/core.c,1
+566,09dc4ab03936,sched/fair: Fix tg_set_cfs_bandwidth() deadlock on rq->lock,kernel/sched/core.c,1
+567,b14ed2c273f8,sched: Fix sched_policy < 0 comparison,kernel/sched/core.c,1
+568,aac74dc49545,printk: rename printk_sched to printk_deferred,kernel/sched/core.c,1
+569,7aa2c016db21,sched: Consolidate open coded implementations of nice level frobbing into nice_to_rlimit() and rlimit_to_nice(),kernel/sched/core.c,1
+570,a803f0261bb2,sched: Initialize rq->age_stamp on processor start,kernel/sched/core.c,11
+571,a9467fa3cd2d,sched: Use clamp() and clamp_val() to make sys_nice() more readable,kernel/sched/core.c,2
+572,caffcdd8d27b,sched: Do not zero sg->cpumask and sg->sgp->power in build_sched_groups(),kernel/sched/core.c,2
+573,c515db8cd311,sched/numa: Fix initialization of sched_domain_topology for NUMA,kernel/sched/core.c,1
+574,22400674945c,sched: Simplify return logic in sched_read_attr(),kernel/sched/core.c,2
+575,e78c7bca56da,sched: Simplify return logic in sched_copy_attr(),kernel/sched/core.c,2
+576,6acbfb96976f,sched: Fix hotplug vs. set_cpus_allowed_ptr(),kernel/sched/core.c,1
+577,b0827819b0da,sched/deadline: Restrict user params max value to 2^63 ns,kernel/sched/core.c,30
+578,ce5f7f8200ca,sched/deadline: Change sched_getparam() behaviour vs SCHED_DEADLINE,kernel/sched/core.c,3
+579,dbdb22754fde,sched: Disallow sched_attr::sched_policy < 0,kernel/sched/core.c,3
+580,143cf23df25b,sched: Make sched_setattr() correctly return -EFBIG,kernel/sched/core.c,3
+581,5c9d535b893f,cgroup: remove css_parent(),kernel/sched/core.c,1
+582,ac1bea85781e,"sched,rcu: Make cond_resched() report RCU quiescent states",kernel/sched/core.c,6
+583,fd99f91aa007,sched/idle: Avoid spurious wakeup IPIs,kernel/sched/core.c,36
+584,d77b3ed5c9f8,sched: Add a new SD_SHARE_POWERDOMAIN for sched_domain,kernel/sched/core.c,7
+585,607b45e9a216,"sched, powerpc: Create a dedicated topology table",kernel/sched/core.c,6
+586,2dfd747629e6,"sched, s390: Create a dedicated topology table",kernel/sched/core.c,3
+587,143e1e28cb40,sched: Rework sched_domain topology definition,kernel/sched/core.c,120
+588,2b4cfe64dee0,sched/numa: Initialize newidle balance stats in sd_numa_init(),kernel/sched/core.c,2
+589,6ccdc84b81a0,sched: Skip double execution of pick_next_task_fair(),kernel/sched/core.c,8
+590,5bfd126e80dc,sched/deadline: Fix sched_yield() behavior,kernel/sched/core.c,1
+591,722a9f9299ca,"asmlinkage: Add explicit __visible to drivers/*, lib/*, kernel/*",kernel/sched/core.c,5
+592,edafe3a56dbd,"kprobes, sched: Use NOKPROBE_SYMBOL macro in sched",kernel/sched/core.c,4
+593,376e242429bf,kprobes: Introduce NOKPROBE_SYMBOL() macro to maintain kprobes blacklist,kernel/sched/core.c,1
+594,db66d756c74a,sched/docbook: Fix 'make htmldocs' warnings caused by missing description,kernel/sched/core.c,2
+595,febdbfe8a91c,"arch: Prepare for smp_mb__{before,after}_atomic()",kernel/sched/core.c,16
+596,52f5684c8e1e,kernel: use macros from compiler.h instead of __attribute__((...)),kernel/sched/core.c,2
+597,b8780c363d80,sched: remove sleep_on() and friends,kernel/sched/core.c,46
+598,6201b4d61fbf,timer: Remove code redundancy while calling get_nohz_timer_target(),kernel/sched/core.c,4
+599,300a9d887ea2,sched: Remove needless round trip nsecs <-> tick conversion of steal time,kernel/sched/core.c,6
+600,383afd097153,sched: Fix broken setscheduler(),kernel/sched/core.c,9
+601,156654f491dd,sched/numa: Move task_numa_free() to __put_task_struct(),kernel/sched/core.c,2
+602,d44753b843e0,sched/deadline: Deny unprivileged users to set/change SCHED_DEADLINE policy,kernel/sched/core.c,9
+603,37e117c07b89,sched: Guarantee task priority in pick_next_task(),kernel/sched/core.c,8
+604,c46fff2a3b29,smp: Rename __smp_call_function_single() to smp_call_function_single_async(),kernel/sched/core.c,1
+605,fce8ad1568c5,smp: Remove wait argument from __smp_call_function_single(),kernel/sched/core.c,1
+606,75e45d512f25,sched: Replace hardcoding of -20 and 19 with MIN_NICE and MAX_NICE,kernel/sched/core.c,6
+607,d82fd25356b9,sched/rt: Remove 'leaf_rt_rq_list' from 'struct rq',kernel/sched/core.c,1
+608,c365c292d059,sched: Consider pi boosting in setscheduler(),kernel/sched/core.c,30
+609,81a44c5441d7,sched: Queue RT tasks to head when prio drops,kernel/sched/core.c,7
+610,d6b1e9119787,sched: Adjust p->sched_reset_on_fork when nothing else changes,kernel/sched/core.c,3
+611,8f47b1871b8a,sched: Add better debug output for might_sleep(),kernel/sched/core.c,21
+612,db273be2a7d4,sched: Check for idle task in might_sleep(),kernel/sched/core.c,2
+613,77177856e3bf,sched: Init idle->on_rq in init_idle(),kernel/sched/core.c,1
+614,3f1d2a318171,sched: Fix hotplug task migration,kernel/sched/core.c,17
+615,6d35ab48090b,"sched: Add 'flags' argument to sched_{set,get}attr() syscalls",kernel/sched/core.c,6
+616,4efbc454ba68,sched: Fix information leak in sys_sched_getattr(),kernel/sched/core.c,1
+617,495163420ab5,sched/core: Make dl_b->lock IRQ safe,kernel/sched/core.c,6
+618,e9e7cb38c21c,sched/core: Fix sched_rt_global_validate,kernel/sched/core.c,2
+619,4df1638cfaf9,sched/deadline: Fix overflow to handle period==0 and deadline!=0,kernel/sched/core.c,1
+620,a53efe5ff88d,sched/mm: call finish_arch_post_lock_switch in idle_task_exit and use_mm,kernel/sched/core.c,3
+621,924f0d9a2078,cgroup: drop @skip_css from cgroup_taskset_for_each(),kernel/sched/core.c,2
+622,37e6bae8395a,sched: Add statistic for newidle load balance cost,kernel/sched/core.c,6
+623,38033c37faab,sched: Push down pre_schedule() and idle_balance(),kernel/sched/core.c,2
+624,606dba2e2894,sched: Push put_prev_task() into pick_next_task(),kernel/sched/core.c,8
+625,3c4017c13f91,sched: Move rq->idle_stamp up to the core,kernel/sched/core.c,9
+626,b4f2ab43615e,sched: Remove 'cpu' parameter from idle_balance(),kernel/sched/core.c,1
+627,d0ea026808ad,sched: Implement task_nice() as static inline function,kernel/sched/core.c,7
+628,073219e995b4,cgroup: clean up cgroup_subsys names and initialization,kernel/sched/core.c,2
+629,7e2703e60996,sched/numa: Normalize faults_cpu stats and weigh by CPU use,kernel/sched/core.c,2
+630,ff1df896aef8,sched/numa: Rename p->numa_faults to numa_faults_memory,kernel/sched/core.c,2
+631,a57beec5d427,sched: Make sched_class::get_rr_interval() optional,kernel/sched/core.c,3
+632,54a43d54988a,numa: add a sysctl for numa_balancing,kernel/sched/core.c,23
+633,286549dcaf4f,sched: add tracepoints related to NUMA task migration,kernel/sched/core.c,2
+634,eaad45132c56,sched: Fix __sched_setscheduler() nice test,kernel/sched/core.c,2
+635,7479f3c9cf67,sched: Move SCHED_RESET_ON_FORK into attr::sched_flags,kernel/sched/core.c,28
+636,0bb040a44381,sched: Fix up attr::sched_priority warning,kernel/sched/core.c,1
+637,39fd8fd22b32,sched: Fix up scheduler syscall LTP fails,kernel/sched/core.c,11
+638,e3de300d1212,sched: Preserve the nice level over sched_setscheduler() and sched_setparam() calls,kernel/sched/core.c,4
+639,5778fccf361c,sched/core: Fix htmldocs warnings,kernel/sched/core.c,2
+640,d8bf52311ece,sched/deadline: Remove unused variables,kernel/sched/core.c,11
+641,8fe8ff09ce3b,sched/nohz: Fix overflow error in scheduler_tick_max_deferment(),kernel/sched/core.c,1
+642,8cb75e0c4ec9,sched/preempt: Fix up missed PREEMPT_NEED_RESCHED folding,kernel/sched/core.c,1
+643,7caff66f361c,sched: Reduce trigger_load_balance() parameters,kernel/sched/core.c,1
+644,de212f18e92c,sched/deadline: Fix hotplug admission control,kernel/sched/core.c,32
+645,1724813d9f2c,sched/deadline: Remove the sysctl_sched_dl knobs,kernel/sched/core.c,71
+646,e4099a5e9294,sched/deadline: Fix up the smp-affinity mask tests,kernel/sched/core.c,9
+647,6bfd6d72f51c,sched/deadline: speed up SCHED_DEADLINE pushes with a push-heap,kernel/sched/core.c,3
+648,332ac17ef5bf,sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks,kernel/sched/core.c,414
+649,2d3d891d3344,sched/deadline: Add SCHED_DEADLINE inheritance logic,kernel/sched/core.c,30
+650,fb00aca47440,rtmutex: Turn the plist into an rb-tree,kernel/sched/core.c,4
+651,755378a47192,sched/deadline: Add period support for SCHED_DEADLINE tasks,kernel/sched/core.c,8
+652,1baca4ce16b8,sched/deadline: Add SCHED_DEADLINE SMP-related data structures & logic,kernel/sched/core.c,8
+653,aab03e05e8f7,sched/deadline: Add SCHED_DEADLINE structures & implementation,kernel/sched/core.c,94
+654,d50dde5a10f3,sched: Add new scheduler syscalls to support an extended scheduling parameters ABI,kernel/sched/core.c,243
+655,5d4cf996cf13,sched: Assign correct scheduling domain to 'sd_llc',kernel/sched/core.c,3
+656,8e8339a3a106,sched: Initialize power_orig for overlapping groups,kernel/sched/core.c,1
+657,2da8ca822d49,cgroup: replace cftype->read_seq_string() with cftype->seq_show(),kernel/sched/core.c,3
+658,44ffc75ba9a6,"cgroup, sched: convert away from cftype->read_map()",kernel/sched/core.c,5
+659,e6c390f2dfd0,sched: Add sched_class->task_dead() method,kernel/sched/core.c,3
+660,192301e70af3,sched: Check TASK_DEAD rather than EXIT_DEAD in schedule_debug(),kernel/sched/core.c,3
+661,32e475d76a3e,sched: Expose preempt_schedule_irq(),kernel/sched/core.c,1
+662,39e24d8ffbb6,sched: Fix a trivial syntax misuse,kernel/sched/core.c,1
+663,0515973ffb16,sched: Fix a trivial typo in comments,kernel/sched/core.c,1
+664,42eb088ed246,sched: Avoid NULL dereference on sd_busy,kernel/sched/core.c,2
+665,911b2898b3c9,sched: Optimize task_sched_runtime(),kernel/sched/core.c,14
+666,37dc6b50cee9,sched: Remove unnecessary iteration over sched domains to update nr_busy_cpus,kernel/sched/core.c,6
+667,b8a216269ec0,sched: Move completion code from core.c to completion.c,kernel/sched/core.c,284
+668,b4145872f704,sched: Move wait code from core.c to wait.c,kernel/sched/core.c,2
+669,1ee14e6c8cdd,sched: Fix race on toggling cfs_bandwidth_used,kernel/sched/core.c,8
+670,ac9ff7997b6f,sched: Remove extra put_online_cpus() inside sched_setaffinity(),kernel/sched/core.c,1
+671,6acce3ef8452,sched: Remove get_online_cpus() usage,kernel/sched/core.c,10
+672,746023159c40,sched: Fix race in migrate_swap_stop(),kernel/sched/core.c,4
+673,1e3646ffc64b,mm: numa: Revert temporarily disabling of NUMA migration,kernel/sched/core.c,2
+674,930aa174fcc8,sched/numa: Remove the numa_balancing_scan_period_reset sysctl,kernel/sched/core.c,1
+675,0ec8aa00f2b4,sched/numa: Avoid migrating tasks that are placed on their preferred node,kernel/sched/core.c,29
+676,5e1576ed0e54,sched/numa: Stay on the same node if CLONE_VM,kernel/sched/core.c,9
+677,8c8a743c5087,"sched/numa: Use {cpu, pid} to create task groups for shared faults",kernel/sched/core.c,3
+678,fb13c7ee0ed3,sched/numa: Use a system-wide search to find swap/migration candidates,kernel/sched/core.c,4
+679,ac66f5477239,sched/numa: Introduce migrate_swap(),kernel/sched/core.c,101
+680,6fe6b2d6dabf,sched/numa: Do not migrate memory immediately after switching node,kernel/sched/core.c,1
+681,e6628d5b0a29,sched/numa: Reschedule task on preferred NUMA node once selected,kernel/sched/core.c,19
+682,3a7053b3224f,sched/numa: Favour moving tasks towards the preferred node,kernel/sched/core.c,2
+683,745d61476ddb,sched/numa: Update NUMA hinting faults once per scan,kernel/sched/core.c,1
+684,688b7585d16a,sched/numa: Select a preferred node with the most numa hinting faults,kernel/sched/core.c,1
+685,f809ca9a554d,sched/numa: Track NUMA hinting faults on per-node basis,kernel/sched/core.c,3
+686,7e8d16b6cbcc,sched/numa: Initialise numa_next_scan properly,kernel/sched/core.c,2
+687,a233f1120c37,sched: Prepare for per-cpu preempt_count,kernel/sched/core.c,2
+688,bdb438065890,sched: Extract the basic add/sub preempt_count modifiers,kernel/sched/core.c,12
+689,01028747559a,sched: Create more preempt_count accessors,kernel/sched/core.c,3
+690,f27dde8deef3,sched: Add NEED_RESCHED to the preempt_count,kernel/sched/core.c,15
+691,4a2b4b222743,sched: Introduce preempt_count accessor functions,kernel/sched/core.c,2
+692,b021fe3e2509,"sched, rcu: Make RCU use resched_cpu()",kernel/sched/core.c,2
+693,431489516562,sched: Micro-optimize by dropping unnecessary task_rq() calls,kernel/sched/core.c,3
+694,9bd721c55c8a,sched/balancing: Consider max cost of idle balance per sched domain,kernel/sched/core.c,2
+695,abfafa54db9a,sched: Reduce overestimating rq->avg_idle,kernel/sched/core.c,4
+696,10866e62e8a6,sched/fair: Fix the sd_parent_degenerate() code,kernel/sched/core.c,9
+697,c8d2d47a9cbb,cpumask: Fix cpumask leak in partition_sched_domains(),kernel/sched/core.c,3
+698,e0acd0a68ec7,sched: fix the theoretical signal_wake_up() vs schedule() race,kernel/sched/core.c,13
+699,fbb00b568bc9,sched: Consolidate open coded preemptible() checks,kernel/sched/core.c,1
+700,d99c8727e7bb,cgroup: make cgroup_taskset deal with cgroup_subsys_state instead of cgroup,kernel/sched/core.c,2
+701,182446d08790,cgroup: pass around cgroup_subsys_state instead of cgroup in file methods,kernel/sched/core.c,32
+702,eb95419b023a,cgroup: pass around cgroup_subsys_state instead of cgroup in subsystem methods,kernel/sched/core.c,20
+703,6387698699af,cgroup: add css_parent(),kernel/sched/core.c,3
+704,a7c6d554aa01,cgroup: add/update accessors which obtain subsys specific data from css,kernel/sched/core.c,6
+705,8af01f56a03e,cgroup: s/cgroup_subsys_state/cgroup_css/ s/task_subsys_state/task_css/,kernel/sched/core.c,2
+706,7d9ffa896148,sched: Micro-optimize the smart wake-affine logic,kernel/sched/core.c,6
+707,e04c5d76b0cf,remove sched notifier for cross-cpu migrations,kernel/sched/core.c,15
+708,e69f61862ab8,sched: Fix some kernel-doc warnings,kernel/sched/core.c,61
+709,0db0628d9012,kernel: delete __cpuinit usage from all core kernel files,kernel/sched/core.c,6
+710,cedce3e73083,sched/__wake_up_sync_key(): Fix nr_exclusive tasks which lead to WF_SYNC clearing,kernel/sched/core.c,1
+711,971ee28cbd1c,sched: Fix HRTICK,kernel/sched/core.c,11
+712,83dfd5235ebd,sched: Update cpu load after task_tick,kernel/sched/core.c,1
+713,a75cdaa915e4,sched: Set an initial value of runnable avg for new forked task,kernel/sched/core.c,2
+714,141965c7494d,"Revert ""sched: Introduce temporary FAIR_GROUP_SCHED dependency for load-tracking""",kernel/sched/core.c,1
+715,be7002e6c613,sched: Don't mix use of typedef ctl_table and struct ctl_table,kernel/sched/core.c,1
+716,94c95ba69f31,sched: Remove WARN_ON(!sd) from init_sched_groups_power(),kernel/sched/core.c,1
+717,cd08e9234c98,sched: Fix memory leakage in build_sched_groups(),kernel/sched/core.c,2
+718,0936629f01bb,sched: Use cached value of span instead of calling sched_domain_span(),kernel/sched/core.c,1
+719,27723a68caf0,sched: Create for_each_sd_topology(),kernel/sched/core.c,6
+720,c75e01288ce9,sched: Don't set sd->child to NULL when it is already NULL,kernel/sched/core.c,1
+721,1c6321694074,sched: Don't initialize alloc_state in build_sched_domains(),kernel/sched/core.c,1
+722,22da956953f3,sched: Optimize build_sched_domains() for saving first SD node for a cpu,kernel/sched/core.c,2
+723,4a850cbefa95,sched: Remove unused params of build_sched_domain(),kernel/sched/core.c,3
+724,873b4c65b519,sched: Fix clear NOHZ_BALANCE_KICK,kernel/sched/core.c,17
+725,45eacc692771,vtime: Use consistent clocks among nohz accounting,kernel/sched/core.c,1
+726,78becc270975,sched: Use an accessor to read the rq clock,kernel/sched/core.c,3
+727,1ad4ec0dc740,sched: Update rq clock before calling check_preempt_curr(),kernel/sched/core.c,2
+728,77bd39702f0b,sched: Update rq clock before migrating tasks out of dying CPU,kernel/sched/core.c,7
+729,c5405a495e88,sched: Remove redundant update_runtime notifier,kernel/sched/core.c,3
+730,45ceebf77653,sched: Factor out load calculation code from sched/core.c --> sched/proc.c,kernel/sched/core.c,569
+731,265f22a975c1,sched: Keep at least 1 tick per second for active dynticks tasks,kernel/sched/core.c,30
+732,3d1cb2059d93,workqueue: include workqueue info when printing debug dump of a worker task,kernel/sched/core.c,1
+733,e6252c3ef4b9,sched: Rename load_balance_tmpmask to load_balance_mask,kernel/sched/core.c,2
+734,99e5ada9407c,nohz: Re-evaluate the tick for the new task after a context switch,kernel/sched/core.c,2
+735,ff442c51f654,nohz: Re-evaluate the tick from the scheduler IPI,kernel/sched/core.c,3
+736,ce831b38ca49,sched: New helper to prevent from stopping the tick in full dynticks,kernel/sched/core.c,18
+737,41fcb9f230bf,mutex: Move mutex spinning code from sched/core.c back to mutex.c,kernel/sched/core.c,45
+738,c5bfece2d612,"nohz: Switch from ""extended nohz"" to ""full nohz"" based naming",kernel/sched/core.c,3
+739,14c6d3c8a47c,sched/cpuacct: Initialize root cpuacct earlier,kernel/sched/core.c,2
+740,dbe4b41f9800,sched/cpuacct: Add cpuacct_init(),kernel/sched/core.c,2
+741,2e76c24d7237,sched: Split cpuacct code out of core.c,kernel/sched/core.c,220
+742,ee761f629d59,arch: Consolidate tsk_is_polling(),kernel/sched/core.c,5
+743,28b4a521f618,sched: Fix typo inside comment,kernel/sched/core.c,1
+744,fd9b86d37a60,sched/debug: Fix sd->*_idx limit range avoiding overflow,kernel/sched/core.c,1
+745,3451d0243c3c,nohz: Rename CONFIG_NO_HZ to CONFIG_NO_HZ_COMMON,kernel/sched/core.c,9
+746,1c20091e77fc,nohz: Wake up full dynticks CPUs when a timer gets enqueued,kernel/sched/core.c,19
+747,383efcd00053,sched: Convert BUG_ON()s in try_to_wake_up_local() to WARN_ON_ONCE()s,kernel/sched/core.c,4
+748,14a40ffccd61,sched: replace PF_THREAD_BOUND with PF_NO_SETAFFINITY,kernel/sched/core.c,4
+749,a8d7ad52a7be,sched/tracing: Allow tracing the preemption decision on wakeup,kernel/sched/core.c,1
+750,b22366cd54c6,context_tracking: Restore preempted context state after preempt_schedule_irq(),kernel/sched/core.c,5
+751,27b4b9319a3c,sched: Remove double declaration of root_task_group,kernel/sched/core.c,4
+752,25cc7da7e633,sched: Move group scheduling functions out of include/linux/sched.h,kernel/sched/core.c,5
+753,b67bfe0d42ca,hlist: drop the node parameter from iterators,kernel/sched/core.c,2
+754,aa00d89c2780,sched: do not use cpu_to_node() to find an offlined cpu's node.,kernel/sched/core.c,19
+755,1c3e826482ab,sched/core: Remove the obsolete and unused nr_uninterruptible() function,kernel/sched/core.c,2
+756,686855f5d833,sched: add wait_for_completion_io[_timeout],kernel/sched/core.c,52
+757,ce0dbbbb30ae,sched/rt: Add a tuning knob to allow changing SCHED_RR timeslice,kernel/sched/core.c,19
+758,c3c186403c6a,sched: Fix signedness bug in yield_to(),kernel/sched/core.c,1
+759,7b270f609982,sched: Bail out of yield_to when source and target runqueue has one task,kernel/sched/core.c,19
+760,6a61671bb2f3,cputime: Safely read cputime of full dynticks CPUs,kernel/sched/core.c,1
+761,ace783b9bbfa,sched: split out css_online/css_offline from tg creation/destruction,kernel/sched/core.c,39
+762,9067ac85d533,wake_up_process() should be never used to wakeup a TASK_STOPPED/TRACED task,kernel/sched/core.c,2
+763,373d4d099761,taint: add explicit flag to show whether lock dep is still OK.,kernel/sched/core.c,1
+764,ea138446e51f,workqueue: rename kernel/workqueue_sched.h to kernel/workqueue_internal.h,kernel/sched/core.c,1
+765,3105b86a9fee,mm: sched: numa: Control enabling and disabling of NUMA balancing if !SCHED_DEBUG,kernel/sched/core.c,9
+766,1a687c2e9a99,mm: sched: numa: Control enabling and disabling of NUMA balancing,kernel/sched/core.c,33
+767,b8593bfda165,mm: sched: Adapt the scanning rate if a NUMA hinting fault does not migrate,kernel/sched/core.c,1
+768,4b96a29ba891,mm: sched: numa: Implement slow start for working set sampling,kernel/sched/core.c,1
+769,cbee9f88ec1b,mm: numa: Add fault driven placement and migration,kernel/sched/core.c,13
+770,91d1aa43d305,context_tracking: New context tracking susbsystem,kernel/sched/core.c,6
+771,582b336ec2c0,sched: add notifier for cross-cpu migrations,kernel/sched/core.c,15
+772,4c44aaafa810,userns: Kill task_user_ns,kernel/sched/core.c,8
+773,92fb97487a7e,cgroup: rename ->create/post_create/pre_destroy/destroy() to ->css_alloc/online/offline/free(),kernel/sched/core.c,8
+774,4e79752c25ec,sched: Mark RCU reader in sched_show_task(),kernel/sched/core.c,5
+775,f4e26b120b9d,sched: Introduce temporary FAIR_GROUP_SCHED dependency for load-tracking,kernel/sched/core.c,6
+776,0a74bef8bed1,sched: Add an rq migration call-back to sched_class,kernel/sched/core.c,2
+777,9ee474f55664,sched: Maintain the load contribution of blocked entities,kernel/sched/core.c,1
+778,9d85f21c94f7,sched: Track the runnable average on a per-task entity basis,kernel/sched/core.c,5
+779,b637a328bd4f,rcu: Print remote CPU's stacks in stall warnings,kernel/sched/core.c,6
+780,4d9a5d4319e2,rcu: Remove rcu_switch(),kernel/sched/core.c,1
+781,301a5cba2887,sched: Update sched_domains_numa_masks[][] when new cpus are onlined,kernel/sched/core.c,56
+782,5f7865f3e44d,sched: Ensure 'sched_domains_numa_levels' is safe to use in other functions,kernel/sched/core.c,13
+783,16a8016372c4,sanitize tsk_is_polling(),kernel/sched/core.c,1
+784,20ab65e33f46,rcu: Exit RCU extended QS on user preemption,kernel/sched/core.c,15
+785,90a340ed53f0,rcu: Exit RCU extended QS on kernel preemption after irq/exception,kernel/sched/core.c,1
+786,04e7e951532b,rcu: Switch task's syscall hooks on context switch,kernel/sched/core.c,1
+787,bf9fae9f5e4c,cputime: Use a proper subsystem naming for vtime related APIs,kernel/sched/core.c,1
+788,5d18023294ab,sched: Fix load avg vs cpu-hotplug,kernel/sched/core.c,20
+789,37407ea7f938,"Revert ""sched: Improve scalability via 'CPU buddies', which withstand random perturbations""",kernel/sched/core.c,1
+790,08bedae1d0ac,sched: Fix load avg vs. cpu-hotplug,kernel/sched/core.c,2
+791,f3e947867478,sched: Remove __ARCH_WANT_INTERRUPTS_ON_CTXSW,kernel/sched/core.c,1
+792,38b8dd6f8739,sched: Remove useless code in yield_to(),kernel/sched/core.c,7
+793,201c373e8e48,sched/debug: Limit sd->*_idx range on sysctl,kernel/sched/core.c,22
+794,a4c96ae319b8,sched: Unthrottle rt runqueues in __disable_runtime(),kernel/sched/core.c,3
+795,f319da0c6894,sched: Fix load avg vs cpu-hotplug,kernel/sched/core.c,10
+796,baa36046d09e,cputime: Consolidate vtime handling on context switch,kernel/sched/core.c,1
+797,73fbec604432,sched: Move cputime code to its own file,kernel/sched/core.c,2
+798,f03542a7019c,sched: recover SD_WAKE_AFFINE in select_task_rq_fair and code clean up,kernel/sched/core.c,1
+799,edde96eafc91,sched: Document schedule() entry points,kernel/sched/core.c,34
+800,35cf4e50b163,"sched,cgroup: Fix up task_groups list",kernel/sched/core.c,1
+801,bea6832cc8c4,"sched: fix divide by zero at {thread_group,task}_times",kernel/sched/core.c,20
+802,895dd92c032e,sched: Deliver sched_switch events to the current task,kernel/sched/core.c,1
+803,45afb1734fa6,sched: Use task_rq_unlock() in __sched_setscheduler(),kernel/sched/core.c,1
+804,8323f26ce342,sched: Fix race in task_group(),kernel/sched/core.c,8
+805,970e178985ca,"sched: Improve scalability via 'CPU buddies', which withstand random perturbations",kernel/sched/core.c,38
+806,7ddf96b02fe8,"cpusets, hotplug: Restructure functions that are invoked during hotplug",kernel/sched/core.c,2
+807,d35be8bab9b0,"CPU hotplug, cpusets, suspend: Don't modify cpusets during suspend/resume",kernel/sched/core.c,36
+808,5167e8d5417b,sched/nohz: Rewrite and fix load-avg computation -- again,kernel/sched/core.c,203
+809,cba6d0d64ee5,"Revert ""rcu: Move PREEMPT_RCU preemption to switch_to() invocation""",kernel/sched/core.c,1
+810,a841f8cef4bb,sched: Fix the relax_domain_level boot parameter,kernel/sched/core.c,3
+811,d039ac60800f,sched: Validate assumptions in sched_init_numa(),kernel/sched/core.c,80
+812,c3decf0dfbc9,sched: Always initialize cpu-power,kernel/sched/core.c,12
+813,c1174876874d,sched: Fix domain iteration,kernel/sched/core.c,56
+814,10717dcde10d,sched/numa: Load balance between remote nodes,kernel/sched/core.c,1
+815,6a4c96eef42f,sched: Remove NULL assignment of dattr_cur,kernel/sched/core.c,1
+816,7997a456ef84,sched: Remove the last NULL entry from sched_feat_names,kernel/sched/core.c,1
+817,1292531f6f27,sched: Make sched_feat_names const,kernel/sched/core.c,1
+818,29baa7478ba4,sched: Move nr_cpus_allowed out of 'struct sched_rt_entity',kernel/sched/core.c,1
+819,74a5ce20e6ee,sched: Fix SD_OVERLAP,kernel/sched/core.c,5
+820,2ea45800d8e1,sched: Don't try allocating memory from offline nodes,kernel/sched/core.c,1
+821,5aaa0b7a2ed5,sched/nohz: Fix rq->cpu_load calculations some more,kernel/sched/core.c,43
+822,ab0cce560ef1,"Revert ""sched, perf: Use a single callback into the scheduler""",kernel/sched/core.c,8
+823,1c2927f18576,sched: Taint kernel with TAINT_WARN after sleep-in-atomic bug,kernel/sched/core.c,1
+824,8e7fbcbc22c1,sched: Remove stale power aware scheduling remnants and dysfunctional knobs,kernel/sched/core.c,94
+825,556061b00c9f,sched/nohz: Fix rq->cpu_load[] calculations,kernel/sched/core.c,39
+826,870a0bb5d636,sched/numa: Don't scale the imbalance,kernel/sched/core.c,1
+827,04f733b4afac,sched/fair: Revert sched-domain iteration breakage,kernel/sched/core.c,2
+828,dd7d8634e619,sched/numa: Fix the new NUMA topology bits,kernel/sched/core.c,1
+829,cb04ff9ac424,"sched, perf: Use a single callback into the scheduler",kernel/sched/core.c,1
+830,cb83b629bae0,sched/numa: Rewrite the CONFIG_NUMA sched domain support,kernel/sched/core.c,185
+831,0ce90475dcdb,sched/fair: Add some serialization to the sched_domain load-balance walk,kernel/sched/core.c,2
+832,30b4e9eb783d,sched: Fix KVM and ia64 boot crash due to sched_groups circular linked list assumption,kernel/sched/core.c,2
+833,9c806aa06f8e,userns: Convert sched_set_affinity and sched_set_scheduler's permission checks,kernel/sched/core.c,2
+834,616c310e83b8,rcu: Move PREEMPT_RCU preemption to switch_to() invocation,kernel/sched/core.c,1
+835,fb2cf2c66097,sched: Fix OOPS when build_sched_domains() percpu allocation fails,kernel/sched/core.c,16
+836,29d5e0476e1c,smp: Provide generic idle thread allocation,kernel/sched/core.c,2
+837,c4a4d603796c,userns: Use cred->user_ns instead of cred->user->user_ns,kernel/sched/core.c,1
+838,4baf6e33251b,cgroup: convert all non-memcg controllers to the new cftype interface,kernel/sched/core.c,4
+839,e3831edd59ed,sched: Fix incorrect usage of for_each_cpu_mask() in select_fallback_rq(),kernel/sched/core.c,2
+840,6135fc1eb4b1,sched: Fix __schedule_bug() output when called from an interrupt,kernel/sched/core.c,1
+841,96f951edb1f1,Add #includes needed to permit the removal of asm/system.h,kernel/sched/core.c,1
+842,2baab4e90495,sched: Fix select_fallback_rq() vs cpu_active/cpu_online,kernel/sched/core.c,46
+843,01f23e1630d9,sched/arch: Introduce the finish_arch_post_lock_switch() scheduler callback,kernel/sched/core.c,1
+844,c308b56b5398,sched: Fix nohz load accounting -- again!,kernel/sched/core.c,26
+845,8e3fabfde445,sched: Update yield() docs,kernel/sched/core.c,18
+846,3ccf3e830615,printk/sched: Introduce special printk_sched() for those awkward moments,kernel/sched/core.c,1
+847,5fbd036b552f,sched: Cleanup cpu_active madness,kernel/sched/core.c,1
+848,4293f20c19f4,"Revert ""CPU hotplug, cpusets, suspend: Don't touch cpusets during suspend/resume""",kernel/sched/core.c,2
+849,367456c756a6,sched: Ditch per cgroup task lists for load-balancing,kernel/sched/core.c,3
+850,3c7d51843b03,sched/rt: Do not submit new work when PI-blocked,kernel/sched/core.c,1
+851,1c4dd99bed5f,sched/rt: Prevent idle task boosting,kernel/sched/core.c,19
+852,63b2001169e7,sched/wait: Add __wake_up_all_locked() API,kernel/sched/core.c,2
+853,ba74c1448f12,sched/rt: Document scheduler related skip-resched-check sites,kernel/sched/core.c,3
+854,c5491ea77979,sched/rt: Add schedule_preempt_disabled(),kernel/sched/core.c,12
+855,8f2f748b0656,"CPU hotplug, cpusets, suspend: Don't touch cpusets during suspend/resume",kernel/sched/core.c,2
+856,c5905afb0ee6,"static keys: Introduce 'struct static_key', static_key_true()/false() and static_key_slow_[inc|dec]()",kernel/sched/core.c,9
+857,8c79a045fd59,sched/events: Revert trace_sched_stat_sleeptime(),kernel/sched/core.c,1
+858,404015308747,security: trim security.h,kernel/sched/core.c,1
+859,761b3ef50e1c,cgroup: remove cgroup_subsys argument from callbacks,kernel/sched/core.c,8
+860,39be350127ec,"sched, block: Unify cache detection",kernel/sched/core.c,3
+861,db7e527da415,sched/s390: Fix compile error in sched/core.c,kernel/sched/core.c,1
+862,4ca9b72b71f1,sched: Fix rq->nr_uninterruptible update race,kernel/sched/core.c,6
+863,9b9fb610f680,sched: Remove empty #ifdefs,kernel/sched/core.c,7
+864,1ac9bc6943ed,sched/tracing: Add a new tracepoint for sleeptime,kernel/sched/core.c,1
+865,664dfa65e844,sched: Disable scheduler warnings during oopses,kernel/sched/core.c,3
+866,11534ec5b6ce,sched: Remove cfs bandwidth period check in tg_set_cfs_period(),kernel/sched/core.c,3
+867,518cd6234178,sched: Only queue remote wakeups when crossing cache boundaries,kernel/sched/core.c,33
+868,07cde2608a3b,sched: Add missing rcu_dereference() around ->real_parent usage,kernel/sched/core.c,1
+869,f8b6d1cc7dc1,sched: Use jump_labels for sched_feat,kernel/sched/core.c,39
+870,be726ffd1ef2,sched/accounting: Fix parameter passing in task_group_account_field,kernel/sched/core.c,2
+871,1c77f38ad623,sched/accounting: Fix user/system tick double accounting,kernel/sched/core.c,2
+872,54c707e98de9,sched/accounting: Re-use scheduler statistics for the root cgroup,kernel/sched/core.c,76
+873,44252e421ad8,"sched/accounting, cgroups: Reuse cgroup's parent pointer",kernel/sched/core.c,9
+874,3292beb340c7,sched/accounting: Change cpustat fields to an array,kernel/sched/core.c,40
+875,69e1e811dcc4,"sched, nohz: Track nr_busy_cpus in the sched_group_power",kernel/sched/core.c,1
+876,1c792db7f795,"sched, nohz: Introduce nohz_flags in 'struct rq'",kernel/sched/core.c,3
+877,4d78a2239e39,sched: Fix the sched group node allocation for SD_OVERLAP domains,kernel/sched/core.c,1
+878,916671c08b78,sched: Set skip_clock_update in yield_task_fair(),kernel/sched/core.c,7
+879,391e43da797a,sched: Move all scheduler bits into kernel/sched/,kernel/{sched.c,4
+880,029632fbb7b7,sched: Make separate sched*.c translation units,kernel/sched.c,80
+881,a3e5d1091c12,sched: Don't call task_group() too many times in set_task_rq(),kernel/sched.c,8
+882,f4d6f6c2649c,"sched, trivial: Initialize root cgroup's sibling list",kernel/sched.c,1
+883,56f570e512ee,sched: Use jump labels to reduce overhead when bandwidth control is inactive,kernel/sched.c,31
+884,f1c6f1a7eed9,sched: Set the command name of the idle tasks in SMP kernels,kernel/sched.c,4
+885,c6dc7f055d33,sched: Document wait_for_completion_*() return values,kernel/sched.c,13
+886,510f5acc4f4f,sched: Don't use tasklist_lock for debug prints,kernel/sched.c,2
+887,4939602a2441,sched: Unify the ->cpus_allowed mask copy,kernel/sched.c,3
+888,fa17b507f142,sched: Wrap scheduler p->cpus_allowed access,kernel/sched.c,4
+889,6eb57e0d65eb,sched: Request for idle balance during nohz idle load balance,kernel/sched.c,5
+890,ca38062e57e9,sched: Use resched IPI to kick off the nohz idle balance,kernel/sched.c,19
+891,908a3283728d,sched: Fix idle_cpu(),kernel/sched.c,14
+892,fa14ff4accfb,sched: Convert to struct llist,kernel/sched.c,10
+893,d670ec13178d,posix-cpu-timers: Cure SMP wobbles,kernel/sched.c,24
+894,fc0763f53e3f,nohz: Remove nohz_cpu_mask,kernel/sched.c,11
+895,b3fbab0571eb,rcu: Restore checks for blocking in RCU read-side critical sections,kernel/sched.c,2
+896,bfb9035c9890,treewide: Correct spelling of successfully in comments,kernel/sched.c,1
+897,6ebbe7a07b3b,sched: Fix up wchan borkage,kernel/sched.c,1
+898,590e4d857153,sched: Allow SD_NODES_PER_DOMAIN to be overridden,kernel/sched.c,2
+899,e8abccb71937,posix-cpu-timers: Cure SMP accounting oddities,kernel/sched.c,24
+900,a8d757ef076f,perf events: Fix slow and broken cgroup context switch code,kernel/sched.c,1
+901,feff8fa0075b,sched: Fix a memory leak in __sdt_free(),kernel/sched.c,1
+902,9c40cef2b799,sched: Move blk_schedule_flush_plug() out of __schedule(),kernel/sched.c,15
+903,c259e01a1ec9,sched: Separate the scheduler entry for preemption,kernel/sched.c,10
+904,d8b4986d3dbc,sched: Return unused runtime on group dequeue,kernel/sched.c,14
+905,e8da1b18b320,sched: Add exports tracking cfs bandwidth control statistics,kernel/sched.c,21
+906,8cb120d3e41a,sched: Migrate throttled tasks on HOTPLUG,kernel/sched.c,27
+907,64660c864f46,sched: Prevent interactions with throttled entities,kernel/sched.c,1
+908,8277434ef120,sched: Allow for positional tg_tree walks,kernel/sched.c,37
+909,671fd9dabe52,sched: Add support for unthrottling group entities,kernel/sched.c,3
+910,85dac906bec3,sched: Add support for throttling group entities,kernel/sched.c,7
+911,a9cf55b28610,sched: Expire invalid runtime,kernel/sched.c,3
+912,58088ad0152b,sched: Add a timer to handle CFS bandwidth refresh,kernel/sched.c,86
+913,ec12cb7f31e2,sched: Accumulate per-cfs_rq cpu usage and charge against bandwidth,kernel/sched.c,3
+914,a790de99599a,sched: Validate CFS quota hierarchies,kernel/sched.c,98
+915,ab84d31e1550,sched: Introduce primitives to account for CFS bandwidth tracking,kernel/sched.c,192
+916,953bfcd10e6f,sched: Implement hierarchical task accounting for SCHED_OTHER,kernel/sched.c,2
+917,c350a04efd1c,sched: fix broken SCHED_RESET_ON_FORK handling,kernel/sched.c,12
+918,e2b245f89ee3,sched: Remove rq->avg_load_per_task,kernel/sched.c,2
+919,acb5a9ba3bd7,sched: Separate group-scheduling code more clearly,kernel/sched.c,19
+920,26a148eb9c79,sched: Reorder root_domain to remove 64 bit alignment padding,kernel/sched.c,1
+921,99bc52429f11,sched: Do not attempt to destroy uninitialized rt_bandwidth,kernel/sched.c,2
+922,5f817d676b7b,sched: Fix (harmless) typo 'CONFG_FAIR_GROUP_SCHED',kernel/sched.c,1
+923,9763b67fb9f3,"sched, cgroup: Optimize load_balance_fair()",kernel/sched.c,32
+924,095c0aa83e52,sched: adjust scheduler cpu power for stolen time,kernel/sched.c,37
+925,e6e6685accfa,KVM guest: Steal time accounting,kernel/sched.c,43
+926,d8bf4ca9ca95,rcu: treewide: Do not use rcu_read_lock_held when calling rcu_dereference_check,kernel/sched.c,1
+927,732375c6a5a4,plist: Remove the need to supply locks to plist heads,kernel/sched.c,2
+928,a8b0ca17b80e,perf: Remove the nmi parameter from the swevent and overflow interface,kernel/sched.c,1
+929,307bf9803f25,sched: Simplify mutex_spin_on_owner(),kernel/sched.c,9
+930,d902db1eb603,sched: Generalize sleep inside spinlock detection,kernel/sched.c,1
+931,bdd4e85dc36c,sched: Isolate preempt counting in its own config option,kernel/sched.c,1
+932,2da8c8bc44b5,sched: Remove pointless in_atomic() definition check,kernel/sched.c,2
+933,e69c634190dc,sched: Remove unlikely() from ttwu_post_activation,kernel/sched.c,1
+934,63f01241176d,sched: Remove unlikely() from rt_policy() in sched.c,kernel/sched.c,1

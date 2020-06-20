@@ -1,30 +1,51 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 11 00:45:52 2020
 
-@author: Group5
 """
+Homework in git.pdf:
+Call it from a subprocess writing the output to a pipe
+Collect the output from the pipe
+Arrange the output into a indexample data array
+Write the entire record to a file
+"""
+
+__author__ = "Group5"
+__copyright__ = "Copyright 2020 The SaveAsCSV Project"
+__credits__ = "Group5"
+__license__ = "GPL"
+__version__ = "2.0"
 
 from subprocess import Popen, PIPE
 import csv
 
-def gitFileDynamics(fileName, kernelRange, repo):
-    #第一步：获取需要的记录。
-    cmd = ["git", "-P", "log", "--stat","--oneline","--follow", kernelRange, fileName]#定义需要执行的git命令。
-    p = Popen(cmd, cwd=repo, stdout=PIPE)#实例化带管道的Popen对象以便传输数据。
-    data, res = p.communicate()#获取记录，数据类型为“bytes"(字节字符串)。
-    txt = data.decode("utf-8").split("\n")  #将获取的字节字符串解码为文本字符串（str），并按照换行符（\n)分割元素创建列表。
-    
-    #第二步：写入csv文件。
-    csv_file = open('record.csv','w',newline='')#创建csv文件。
-    writer = csv.writer(csv_file)#实例化writer对象以便使用writerow方法写入数据。
-    for i in range(int((len(txt)-1)/3)):  #遍历txt列表。
-        s1 = txt[3*i].split(' ')#提取第一行数据。
-        s2 = txt[3*i+1].split(' ')#提取第二行数据。
-        s3 = txt[3*i+2].split(' ')#提取第三行数据。
-        list_ = [i+1, s1[0], ' '.join(s1[1:]), s2[1], s3[4]]#将数据组合到一起并加上序号。
-        print(list_)
-        writer.writerow(list_)#写入csv文件。
-    csv_file.close()#关闭csv文件。
-    
-gitFileDynamics("kernel/sched/core.c", "v3.4..v3.6", "D:\Source\linux")#运行该函数并传入参数。
+
+class QueryFile(object):
+    def __init__(self, fileName, repo):
+        self.fileName = fileName
+        self.repo = repo
+        self.answer = self.query()
+        self.lines = None
+        self.shas = None
+
+    def query(self, kernelRange='v3.0..HEAD'):
+        cmd = ["git", "-P", "log", "--stat", "--oneline", "--follow", kernelRange, self.fileName]
+        p = Popen(cmd, cwd=self.repo, stdout=PIPE)
+        data, res = p.communicate()
+        return data.decode("utf-8").split("\n")
+
+    def savecsv(self, save_path):
+        with open(save_path, 'w', newline='') as csv_file:
+            writer = csv.writer(csv_file)
+            # Instantiate a writer object to write data using the Writerow method.
+            for i in range(int((len(self.answer) - 1) / 3)):  # traverse self.answer
+                s1 = self.answer[3 * i].split(' ')  # get the first line of self.answer
+                s2 = self.answer[3 * i + 1].split(' ')  # get the second line of self.answer。
+                s3 = self.answer[3 * i + 2].split(' ')  # get the third line of self.answer
+                row = [i + 1, s1[0], ' '.join(s1[1:]), s2[1], s3[4]]  # group together and number them
+                # print(row)
+                writer.writerow(row)  # write into a csv
+
+
+if __name__ == '__main__':
+    file = QueryFile("kernel/sched/core.c", r"C:\Users\admin\Desktop\linux-stable")
+    file.query('v5.0..HEAD')
+    file.savecsv('gitlog_answers.csv')
