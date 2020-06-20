@@ -1,0 +1,19 @@
+The original assumption of the project: In the linux-stable warehouse, the number of commits and the average commit time in the file are the main factors that affect the code quality of the file.
+
+Metrics: number of shas (shas), earliest commit time (the_first_time), latest commit time (the_last_time), average commit time (average_date), number of developers (authors), code lines (lines), shas historical commits ( total_shas), fixes density (fixes_percent), etc. Among them, fixes density (fixes_percent) is used to represent code quality, and other indicators are used as variable factors.
+
+Models: multiple linear regression, decision tree
+
+Model results (retain three decimal places):
+The R^2 of the multiple linear regression model is about 0.378. The two variables with the highest coefficients in the model are total_shas and average_date, and their coefficients are -0.516 and 0.156, respectively.
+The R^2 of the decision tree model is about 0.338. The two variables with the largest weights in the model are shas and total_shas, ​​and their weights are 0.470 and 0.161, respectively.
+
+In conclusion:
+From the modeling results, the fit of the multiple linear regression model is slightly higher than the decision tree model.
+1) According to the results of the multiple linear regression model, total_shas and average_date are the main factors affecting the fixes_percent of the file. Under the premise that total_shas, ​​average_date, and fixes_percent can represent the number of commit commits, average commit time, and code quality, the model results are consistent with the assumptions. The original hypothesis holds.
+2) According to the decision tree model results, shas and total_shas are the main factors affecting the fixes_percent of the file. Under the premise that shas, ​​total_shas, ​​and fixes_percent can represent the number of commits, commit commits, and code quality, the model results are inconsistent with the original hypothesis. The main factors that affect the quality of the code are the number of existing commits and commit commits.
+
+Deficiencies and reflection:
+1) The R^2 of the two models does not exceed 0.5, indicating that their fit to the data is not ideal. This shows that the model we chose is simpler and may fit the data better in more complex models.
+2) The results of the two models are affected differently by similar data. The decision tree model receives more influence, so the influence of similar data should be considered when interpreting the weighting results.
+3) The interpretation angles of the two models are different. Multiple linear regression focuses on the extent to which explanatory variables affect results; decision trees focus on explaining how to identify and distinguish results through variables.
