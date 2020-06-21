@@ -1,37 +1,48 @@
-import seaborn as sns
-import pandas as pd
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Model Evaluation: F Test"""
+
+__author__ = "ZhangQiyuan"
+__copyright__ = "Copyright2020,Group05 Final_Project"
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = ["ZhangQiyuan", "YanHaoqiu"]
+
 import numpy as np
+import pandas as pd
 from scipy.stats import f
-csv_data = pd.read_csv('predict_.csv')
-df=pd.DataFrame(csv_data)
-df.columns=['x1','x2','x3','x4','x5','x6','x7','y1','yl','yi']
-x1=df['x1']
-x2=df['x2']
-x3=df['x3']
-x4=df['x4']
-x5=df['x5']
-x6=df['x6']
-x7=df['x7']
-y1=df['y1']
-yi=df['yi']
-mean_y=y1.mean()
-ESS= np.sum((y1-yi) **2)
-RSS= np.sum((yi-mean_y)**2)
-TSS= np.sum((y1-mean_y)**2)
-print(ESS)
-print(RSS)
-print(TSS)
-p=7
-#多少个自变量维度，有七个x，p=7
-n=len(x1)
-#多少组数值，csv文件的长度
-F = (RSS / p) / (ESS / (n-p-1))
-F_throry = f.ppf(q=0.95,dfn=p,dfd=n-p-1)
-print(F)
-print(F_throry)
-#统计量远大于值，拒绝原假设
-#F统计量值远远大于F分布的理论值，所以拒绝原假设，认为多元线性回归模型是显著的，所以回归模型的偏回归系数不全为0。
 
 
+def f_evaluation(samples, y_true, y_predict):
+    """Model Evaluation: F Test
+    1. Make decision rule: calculate critical values
+    2. Test statistics: calculate f-test"""
+    mean_y = y_true.mean()
+    ESS = np.sum((y_true - y_predict) ** 2)
+    RSS = np.sum((y_true - mean_y) ** 2)
+    # TSS = np.sum((y_true - mean_y) ** 2)
+    p = 7  # number of predictors
+    n = samples  # number of samples
+    f_test = (RSS / p) / (ESS / (n - p - 1))
+    print(f"{y_predict.name}'s F-test: {f_test} ")
+    # Two tailed test and calculate critical value
+    F_throry_left = f.ppf(q=0.025, dfn=p, dfd=n - p - 1)
+    F_throry_right = f.ppf(q=0.975, dfn=p, dfd=n - p - 1)
+    print(f"{y_predict.name}'s left critical value: {F_throry_left} ")
+    print(f"{y_predict.name}'s right critical value: {F_throry_right} ")
 
 
+if __name__ == '__main__':
+    csv_data = pd.read_csv('predict(1).csv')
+    df = pd.DataFrame(csv_data)
+    df.columns = ['lines', 'authors', 'shas','the_first_time','the_last_time',
+                  'average_time','total_shas','true_y','linear_y','tree_y']
+    x1 = df['lines']
+    y1 = df['y1']
+    yl = df['yl']
+    yd = df['yd']
+    samples = len(df['lines'])  # calculate the number of samples
+    # Test of Linear Model
+    f_evaluation(samples, df['true_y'], df['linear_y'])
+    # Test of Decision Tree
+    f_evaluation(samples, df['true_y'], df['tree_y'])
